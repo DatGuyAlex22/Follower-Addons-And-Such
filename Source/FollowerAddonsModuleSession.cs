@@ -8,8 +8,6 @@ public class FollowerAddonsModuleSession : EverestModuleSession
 
     public bool TriggeredStopCollect;
 
-    public int TriggeredStrawberryCollectionType;
-
     public bool TriggeredKeepOnDeath;
 
     public bool TriggerTriggerFollowerSizeOverride;
