@@ -1,0 +1,35 @@
+# HEADERS
+	MODMENU_LENIENCYOPTIONS= Leniency Options
+	MODMENU_COSMETICOPTIONS= Cosmetic Options
+	MODMENU_EXPERIMENTALOPTIONS= Experimental Options
+
+	MODSETTING_HEADER_FOLLOWER= Follower Settings
+	MODSETTING_HEADER_HOLDABLE= Holdable Settings
+	MODSETTING_HEADER_PLAYER= Player Settings
+	MODSETTING_HEADER_OTHER= Miscellaneous Settings
+
+# OPTIONS
+	MODSETTING_MASTERSWITCH= Enabled
+	MODSETTING_MASTERSWITCH_CONTEXT= Must be enabled to use any features below.
+
+	MODSETTING_STRAWBERRYCOLLECTSPEED= Strawberry Collection Type
+		MODSETTING_STRAWBERRYCOLLECTSPEED_CONTEXT=
+								- Default: Strawberries will collect when the player stands on safe ground{n}
+								- Prevent: Strawberries will only collect at the end of each level{n}
+								- Instant: Strawberries will collect as soon as the player touches them, even mid-air
+	MODSETTING_KEEPONDEATH= Keep Strawberries After Death
+	MODSETTING_STOPSEEDPOPPING= Prevent Strawberry Seed Popping
+	MODSETTING_FOLLOWERSBUFFER= Follower Lag Buffer
+		MODSETTING_FOLLOWERSBUFFER_CONTEXT= The maximum amount of entities that can be following the player at{n}one time before limiting some features of this mod for performance
+
+	MODSETTING_CREATEFOLLOWERTRAILS= Enable Follower Trails
+	MODSETTING_FOLLOWERSCALE= Follower Scale Multiplier
+	MODSETTING_CREATEHOLDABLETRAILS= Enable Holdable Trails
+	MODSETTING_HOLDABLESCALE= Holdable Scale Multiplier
+	MODSETTING_STOPHAIRFALL= Disable Hair Gravity
+	MODSETTING_INCREASEDEPTH= Place Resized Entities Further Back
+		MODSETTING_INCREASEDEPTH_CONTEXT= Whether or not to render entities following{n}the player behind background tiles for visibility
+	MODSETTING_STOPHEARTCOLLECT= Prevent Crystal Heart Collection
+
+	MODSETTING_EVENIFGOLDEN= Leniency For Golden Strawberries
+		MODSETTING_EVENIFGOLDEN_CONTEXT= Whether or not to change the behavior of Golden Strawberries.{n}Only recommended for use in Debug Mode.

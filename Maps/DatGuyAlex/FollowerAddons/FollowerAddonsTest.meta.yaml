@@ -1,0 +1,42 @@
+Mountain:
+    Idle:
+        Position: [ -0.963, 10.542, -5.314 ]
+        Target: [ -0.178, 9.588, -3.741 ]
+    Select:
+        Position: [ 1.786, 8.760, -5.080 ]
+        Target: [ 0.494, 8.810, -3.554 ]
+    Zoom:
+        Position: [ -0.205, 9.318, -4.217 ]
+        Target: [ -0.729, 9.108, -2.298 ]
+    Cursor: [ 0.2264417, 9.015848, -2.010033 ]
+    State: 2
+    ShowSnow: false
+
+CompleteScreen:
+    Atlas: "Endscreens/DatGuyAlex/FollowerAddons"
+    Start: [ 0.0, 1050.0 ]
+    Center: [ 0.0, 250.0 ]
+    Layers:
+      - Type: "layer"
+        Images: [ "00a", "00b" ]
+        Position: [ -108.0, 0.0 ]
+        Scroll: [ 0.0 ]
+        Scale: 1
+        FrameRate: 20
+      - Type: "layer"
+        Images: [ "01" ]
+        Position: [ -108.0, 0.0 ]
+        Scroll: [ 0.01 ]
+        Scale: 2
+      - Type: "layer"
+        Images: [ "07a" ]
+        Position: [ -108.0, -100.0 ]
+        Scroll: [ 0.03 ]
+        Scale: 2
+      - Type: "ui"
+        ScrollX: [ 0.2 ]
+      - Type: "layer"
+        Images: [ "10" ]
+        Position: [ -108.0, 0.0 ]
+        Scroll: [ 0.12 ]
+        Scale: 2

@@ -1,0 +1,67 @@
+mods.FollowerAddons.name=Follower Addons & Such
+
+# Strawberry Blockfield Trigger
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.placements.name.blockfield_safe=Strawberry Blockfield Trigger (Safe)
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.placements.description.blockfield_safe=A Strawberry Blockfield that can persist through room transitions, save & quits, and deaths.\nAllows for berries to be returned to the player after dying for extra leniency.
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.placements.name.blockfield_unsafe=Strawberry Blockfield Trigger (Unsafe)
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.placements.description.blockfield_unsafe=A Strawberry Blockfield that can persist through room transitions, save & quits, and deaths.\nDoes not allow for berries to be returned to the player after dying.
+
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.attributes.name.keepOnDeath=Risk-Free
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.attributes.description.keepOnDeath=Whether or not to restore the player's strawberries when they die.
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.attributes.name.triggerOn=Enable
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.attributes.description.triggerOn=Enabled - Strawberries can't collect.\nDisabled - Strawberries can collect.
+triggers.FollowerAddons/StrawberryBlockfieldTrigger.attributes.name.resetOnLeave=Reset On Leave
+
+# Follower Size Trigger
+triggers.FollowerAddons/FollowerSizeTrigger.placements.name.normal=Follower Size Trigger
+
+triggers.FollowerAddons/FollowerSizeTrigger.attributes.name.sizeMult=Size Multiplier
+triggers.FollowerAddons/FollowerSizeTrigger.attributes.name.resetOnLeave=Reset On Leave
+triggers.FollowerAddons/FollowerSizeTrigger.attributes.name.alwaysScale=Force Size
+triggers.FollowerAddons/FollowerSizeTrigger.attributes.description.alwaysScale=When enabled, entities will always have their size\nmultiplied regardless of if they've been picked up.
+
+# Follower Trail Trigger
+triggers.FollowerAddons/FollowerTrailTrigger.placements.name.normal=Follower Trail Trigger
+triggers.FollowerAddons/FollowerTrailTrigger.attributes.name.triggerOn=Enable
+triggers.FollowerAddons/FollowerTrailTrigger.attributes.name.resetOnLeave=Reset On Leave
+
+# Holdable Size Trigger
+triggers.FollowerAddons/HoldableSizeTrigger.placements.name.normal=Holdable Size Trigger
+
+triggers.FollowerAddons/HoldableSizeTrigger.attributes.name.sizeMult=Size Multiplier
+triggers.FollowerAddons/HoldableSizeTrigger.attributes.name.resetOnLeave=Reset On Leave
+triggers.FollowerAddons/HoldableSizeTrigger.attributes.name.alwaysScale=Force Size
+triggers.FollowerAddons/HoldableSizeTrigger.attributes.description.alwaysScale=When enabled, entities will always have their size\nmultiplied regardless of if they've been picked up.
+
+# Holdable Trail Trigger
+triggers.FollowerAddons/HoldableTrailTrigger.placements.name.normal=Holdable Trail Trigger
+triggers.FollowerAddons/HoldableTrailTrigger.attributes.name.triggerOn=Enable
+triggers.FollowerAddons/HoldableTrailTrigger.attributes.name.resetOnLeave=Reset On Leave
+
+# Trail Color Controller
+entities.FollowerAddons/TrailColorController.placements.name.normal=Trail Color Controller
+entities.FollowerAddons/TrailColorController.placements.description.normal=Allows mappers to add custom trail colors to non-Vanilla entities.\nCan be global or room specific.
+
+entities.FollowerAddons/TrailColorController.attributes.name.color=Trail Color
+entities.FollowerAddons/TrailColorController.attributes.description.entities=A semicolon (;) separated list of entities to apply this trail color to.\nRequires a Follower / Holdable Trail Trigger to be used. Case sensitive.
+
+# Entity Outliner
+entities.FollowerAddons/EntityOutliner.placements.name.normal=Entity Outliner
+entities.FollowerAddons/EntityOutliner.placements.description.normal=Allows mappers to add a tinted outline to any entity with a sprite component.\nCan be global or room specific.
+
+entities.FollowerAddons/EntityOutliner.attributes.name.color=Outline Color
+entities.FollowerAddons/EntityOutliner.attributes.description.entities=A semicolon (;) separated list of entities to apply this outline to. Case sensitive.
+entities.FollowerAddons/EntityOutliner.attributes.description.offset=The distance the outline will have from the entity's sprite.
+
+# Player Temple Eyeball
+entities.FollowerAddons/PlayerTempleEyeball.placements.name.normal=Player Temple Eyeball
+
+# Custom Depth Touch Switch
+entities.FollowerAddons/CustomDepthTouchSwitch.placements.name.normal=Touch Switch (Custom Depth)
+entities.FollowerAddons/CustomDepthTouchSwitch.attributes.description.depth=The depth of this entity.\nUse 2000 for vanilla.
+
+# Crystal Heart Blockfield Trigger
+triggers.FollowerAddons/CrystalHeartBlockfieldTrigger.placements.name.normal=Crystal Heart Blockfield Trigger
+
+# Disable Hair Gravity Trigger
+triggers.FollowerAddons/DisableHairGravityTrigger.placements.name.normal=Disable Player Hair Gravity
