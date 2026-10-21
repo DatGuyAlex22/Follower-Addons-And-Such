@@ -1,61 +1,116 @@
-# Updated to v1.1.0
-    Removed the rogue Theo Crystal in the demo map
-    Added Trail Color Controllers (with a custom Loenn sprite by me!)
-    Fixed some older dialog in the test map
-    Removed a Loenn plugin that created a non-existent entity
-# Updated to v1.2.0
-    Added an option to make strawberries collect instantly
-    Added Player Temple Eyes that follow players instead of Theo Crystals
-    Added a default trail color for strawberry seeds
-    Added a description for some settings
-# Updated to v1.2.1
-    Removed a setting under Experimental Options that was accidentally left in
-# Updated to v1.3.0
-    Added 'Stop Heart Collection' option
-    Added 'Settings Affect Golden Strawberries'
-    Added padding to some subheaders for a cleaner look
-# Updated to v1.3.1
-    Removed test map
-    Fixed an issue with Stop Heart Collection not actually changing it's value
-    Fixed an issue where Strawberry Blockfield Triggers wouldn't work when Strawberry Collection Speed was set to 'Instant'
-# Updated to v1.3.2
-    Fixed CelesteNet entities having flashing sprites and colours
-    Fixed an issue with Stop Heart Collection not actually changing it's value for real
-    Moved Prevent Crystal Heart Collection to Cosmetic Options
-    Changed the name of Settings Affect Golden Strawberries to 'Leniency For Golden Strawberries' and added a description
-# Updated to v1.3.3
-    Changed 'Debug Move' to Debug Mode
-    Crystal Hearts set to end the level will now set Settings.StrawberryCollectOverride to true (does not include vanilla)
-# Updated to v1.3.4
-    Follower and Holdable scales can now be floats
-    Follower and Holdable scale range reduced to 0.0x - 10.0x
-    Renamed 'resetdonotload' to 'wipedonotload'
-    wipedonotload now actually works
-    Holdables will now scale down when not held
-    Followers and Holdables will now scale up/down slightly smoother
-    The mod will now be disabled in Mod Options by default to be more compatible with custom maps
-# Updated to v1.4.0
-    Fixed an issue where CNet players always face left
-    Added an option to stop strawberry seeds from popping
-    Reworked Trail Color Controller to be easier to use
-    Added Custom Depth Touch Switch (requires Tiny Adventure Dependancy)
-# Updated to v1.5.0
-    Changed the way the settings menu works for more customization in the future
-    Removed dialogue for the old test map
-# Updated to v1.6.0
-    Added 'alwaysScale' option to Follower/Holdable size triggers
-    Moved Instant berry collection to orig_Update for more consistent results
-    Added Entity Outliner
-    Added Follower Lag Buffer
-        Removes any berries that have a follower index higher than the player's set limit
-# Updated to v1.7.0
-    Renamed 'Place Large Entities Further Back' to 'Place Resized...'
-    The 'Place Resized Entities Further Back' option can now be toggled in-game
-    Followers will now float to the player's spawn point on death
-    Follower Lag Buffer can now be set to 0
-    Added Disable Hair Gravity and Crystal Heart Blockfield Triggers
-# Updated to v1.7.1
-    Added descriptions to Mod Options
-# Updated to v1.7.2
-    Lost followers now curve instead of lerp
-    
+# Table of Contents
+- [<u>Table of Contents</u>](#table-of-contents)
+- [<u>Update Structure</u>](#update-structure)
+- [<u>Update History</u>](#update-history)
+
+# Update Structure
+```mermaid
+ flowchart TD
+  Ready{Is the update ready\nfor GameBanana?}
+
+  AddNew([Does the update add\nany new content?])
+  MajorMinorUpdate([Is the update\nbackwards-compatible?])
+  UpdatePatch[Increase PATCH\nversion number.]
+  UpdateMinor[Increase MINOR\nversion number.]
+  UpdateMajor[Increase MAJOR\nversion number.]
+
+  FixSelf([Are there issues that\nyou can't fix yourself?])
+  AskClord[Ask the Celeste\nDiscord, if neccesary.]
+  ClordCourtesy([Can you use help from the Celeste Discord in a respectful, useful way?])
+  IntegrateClord[Integrate feedback.]
+  CreditClord[Credit any users\nthat gave help,\nunless asked not to.]
+  ScrapIdeaNextUpdate[Remove the relevant code until it has been brought into a functioning state.]
+
+  Ready -- Yes --> AddNew
+  Ready -- No --> FixSelf
+  AddNew -- Yes --> MajorMinorUpdate
+  AddNew -- No --> UpdatePatch
+  MajorMinorUpdate -- Yes --> UpdateMinor
+  MajorMinorUpdate -- No --> UpdateMajor
+
+  FixSelf -- Yes --> AskClord
+  FixSelf -- No --> ScrapIdeaNextUpdate
+  ScrapIdeaNextUpdate --> AddNew
+  AskClord --> ClordCourtesy
+  ClordCourtesy -- Yes --> IntegrateClord
+  IntegrateClord --> CreditClord
+  CreditClord --> AddNew
+  ClordCourtesy -- No --> ScrapIdeaNextUpdate
+```
+# Update History
+| Version Number | Date Published | Relevance |
+| :------------: | :------------: | :-------: |
+| [v1.1.0](https://gamebanana.com/updates/451398) | August 29th, 2026 | Minor |
+| [v1.2.0](https://gamebanana.com/updates/452567) | September 2nd, 2026 | Minor |
+| [v1.2.1](https://gamebanana.com/updates/452569) | September 2nd, 2026 | Patch |
+| [v1.3.0](https://gamebanana.com/updates/452746) | September 3rd, 2026 | Minor |
+| [v1.3.1](https://gamebanana.com/updates/452769) | September 3rd, 2026 | Patch |
+| [v1.3.2](https://gamebanana.com/updates/453333) | September 5th, 2026 | Patch |
+| [v1.3.3](https://gamebanana.com/updates/453628) | September 6th, 2026 | Patch |
+| [v1.3.4](https://gamebanana.com/updates/454437) | September 9th, 2026 | Patch |
+| [v1.4.0](https://gamebanana.com/updates/455911) | September 14th, 2026 | Minor |
+| [v1.5.0](https://gamebanana.com/updates/456797) | September 18th, 2026 | Minor |
+| [v1.6.0](https://gamebanana.com/updates/460642) | October 2nd, 2026 | Minor |
+| [V1.7.0](https://gamebanana.com/updates/465042) | October 16th, 2026 | Minor |
+| [v1.7.1](https://gamebanana.com/updates/465201) | October 17th, 2026 | Patch |
+| [v1.7.2](https://gamebanana.com/updates/466463) | October 19th, 2026 | Patch |
+
+#
+### Version 1.1.0
+    Removed the rogue Theo Crystal in the demo map.
+    Added Trail Color Controllers (with a custom Loenn sprite by me!).
+    Fixed some older dialog in the test map.
+    Removed a Loenn plugin that created a non-existent entity.
+### Version 1.2.0
+    Added an option to make strawberries collect instantly.
+    Added Player Temple Eyes that follow players instead of Theo Crystals.
+    Added a default trail color for strawberry seeds.
+    Added a description for some settings.
+### Version 1.2.1
+    Removed a setting under Experimental Options that was accidentally left in.
+### Version 1.3.0
+    Added a 'Stop Crystal Heart Collection' option to Experimental Options.
+    Added a 'Settings Affect Golden Strawberries' option to Experimental Options.
+    Added padding to some subheaders for a cleaner look.
+### Version 1.3.1
+    Removed the test map.
+    Fixed an issue with the Stop Crystal Heart Collection option not saving.
+    Fixed an issue where Strawberry Blockfield Triggers wouldn't work when Strawberry Collection Speed was set to 'Instant'.
+### Version 1.3.2
+    Fixed players and entities created by CelesteNet flashing rapidly between sizes.
+    Fixed an issue where the Prevent Crystal Heart Collection option would not update it's value.
+    Moved Prevent Crystal Heart Collection from Experimental Options to Cosmetic Options.
+    Renamed Settings Affect Golden Strawberries to Leniency For Golden Strawberries and added a proper description.
+### Version 1.3.3
+    Fixed a typo where Debug Mode was incorrectly called 'Debug Move.
+    Strawberries will now visually collect when collecting a level-ending Crystal Heart (currently does not support vanilla levels).
+### Version 1.3.4
+    Follower and Holdable scales can now be decimal values.
+    Follower and Holdable scales can now only be between 0.0x-10.0x.
+    Follower and Holdables will now scale up/down slightly smoother.
+    Holdables will now scale down properly when not being held.
+    Renamed 'resetdonotload' to 'wipedonotload' in the debug console.
+    Wipedonotload now works as intended (instead of doing nothing at all).
+    Follower Addons & Such will now be disabled in Mod Options by default to be more compatible with custom maps.
+### Version 1.4.0
+    Added an option to prevent strawberry seeds from popping away.
+    Fixed an issue where entity sprites could get locked facing one direction when Follower Addons & Such was disabled.
+    Reworked the Trail Color Controller to be easier to use for mappers.
+### Version 1.5.0
+    Reworked settings in the Mod Options menu (users may have to set their settings again).
+    Removed some old dialog.
+### Version 1.6.0
+    Strawberries will now collect more consistently when set to collect instantly.
+    Added an 'always scale' option to Follower Size / Holdable Size triggers.
+    Added Entity Outliners for mappers.
+    Added a setting to help reduce lag when carrying many followers at once.
+### Version 1.7.0
+    Added Disable Hair Gravity Triggers to match Mod Options.
+    Added Crystal Heart Blockfield Triggers to match Mod Options.
+    The 'Follower Lag Buffer' option can now be set to 0.
+    Followers will now float to the player's respawn point when dying with 'Keep Strawberries After Death' enabled.
+    Renamed the 'Place Large Entities Further Back' option to 'Place Resized Entities Further Back.'
+### Version 1.7.1
+    Added descriptions to some entries in the Mod Options menu.
+### Version 1.7.2
+    Entities following the player will not curve to the player's respawn point on death instead of moving in a straight line.
