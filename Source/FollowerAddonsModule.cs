@@ -130,6 +130,7 @@ public class FollowerAddonsModule : EverestModule
         {
             self.Entity.Add(new EntityDepthFinder(self.Entity.Depth));
         }
+        orig(self);
         Sprite sprite = self.Entity.Get<Sprite>();
         if (Session.TriggerTriggerFollowerSizeOverride)
         {

@@ -13,7 +13,7 @@ public class StrawberryBlockfieldTrigger : Trigger
 
     private bool resetOnLeave;
 
-    public StrawberryBlockfieldTrigger(EntityData data, Vector2 offset, int version) :
+    public StrawberryBlockfieldTrigger(EntityData data, Vector2 offset) :
         base(data, offset)
     {
         this.keepOnDeath = data.Bool("keepOnDeath");

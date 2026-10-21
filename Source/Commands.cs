@@ -1,5 +1,7 @@
 ﻿using FMOD.Studio;
 using Monocle;
+using System;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.FollowerAddons;
 
@@ -13,9 +15,11 @@ public static class Commands
         {
             if (logEntries)
             {
-                foreach (EntityID item in (scene as Level).Session.DoNotLoad)
+                EntityID[] IDs = new EntityID[(scene as Level).Session.DoNotLoad.Count];
+                (scene as Level).Session.DoNotLoad.CopyTo(IDs);
+                for (int i = 0; i < IDs.Length; i++)
                 {
-                    Logger.Debug("Follower Addons & Such", "Cleared item with ID " + item.ToString());
+                    Logger.Debug("Follower Addons & Such", "Cleared item with ID " + IDs[i].ToString());
                 }
             }
             (scene as Level).Session.DoNotLoad.Clear();

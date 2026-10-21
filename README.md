@@ -1,3 +1,6 @@
+<!-- [GitHub](https://github.com/DatGuyAlex22/Follower-Addons-And-Such) -->
+<!-- [GameBanana](https://gamebanana.com/mods/711016) -->
+
 # Table of Contents
 - [<u>Table of Contents</u>](#table-of-contents)
 - [<u>Update Structure</u>](#update-structure)
@@ -40,20 +43,21 @@
 # Update History
 | Version Number | Date Published | Relevance |
 | :------------: | :------------: | :-------: |
-| [v1.1.0](https://gamebanana.com/updates/451398) | August 29th, 2026 | Minor |
-| [v1.2.0](https://gamebanana.com/updates/452567) | September 2nd, 2026 | Minor |
-| [v1.2.1](https://gamebanana.com/updates/452569) | September 2nd, 2026 | Patch |
-| [v1.3.0](https://gamebanana.com/updates/452746) | September 3rd, 2026 | Minor |
-| [v1.3.1](https://gamebanana.com/updates/452769) | September 3rd, 2026 | Patch |
-| [v1.3.2](https://gamebanana.com/updates/453333) | September 5th, 2026 | Patch |
-| [v1.3.3](https://gamebanana.com/updates/453628) | September 6th, 2026 | Patch |
-| [v1.3.4](https://gamebanana.com/updates/454437) | September 9th, 2026 | Patch |
-| [v1.4.0](https://gamebanana.com/updates/455911) | September 14th, 2026 | Minor |
-| [v1.5.0](https://gamebanana.com/updates/456797) | September 18th, 2026 | Minor |
-| [v1.6.0](https://gamebanana.com/updates/460642) | October 2nd, 2026 | Minor |
-| [V1.7.0](https://gamebanana.com/updates/465042) | October 16th, 2026 | Minor |
-| [v1.7.1](https://gamebanana.com/updates/465201) | October 17th, 2026 | Patch |
-| [v1.7.2](https://gamebanana.com/updates/466463) | October 19th, 2026 | Patch |
+| [v1.1.0](https://gamebanana.com/updates/451398) | August 29th, 2026 | <span style="color:#00ff00">Minor</span> |
+| [v1.2.0](https://gamebanana.com/updates/452567) | September 2nd, 2026 | <span style="color:#00ff00">Minor</span> |
+| [v1.2.1](https://gamebanana.com/updates/452569) | September 2nd, 2026 | <span style="color:#ffff00">Patch</span> |
+| [v1.3.0](https://gamebanana.com/updates/452746) | September 3rd, 2026 | <span style="color:#00ff00">Minor</span> |
+| [v1.3.1](https://gamebanana.com/updates/452769) | September 3rd, 2026 | <span style="color:#ffff00">Patch</span> |
+| [v1.3.2](https://gamebanana.com/updates/453333) | September 5th, 2026 | <span style="color:#ffff00">Patch</span> |
+| [v1.3.3](https://gamebanana.com/updates/453628) | September 6th, 2026 | <span style="color:#ffff00">Patch</span> |
+| [v1.3.4](https://gamebanana.com/updates/454437) | September 9th, 2026 | <span style="color:#ffff00">Patch</span> |
+| [v1.4.0](https://gamebanana.com/updates/455911) | September 14th, 2026 | <span style="color:#00ff00">Minor</span> |
+| [v1.5.0](https://gamebanana.com/updates/456797) | September 18th, 2026 | <span style="color:#00ff00">Minor</span> |
+| [v1.6.0](https://gamebanana.com/updates/460642) | October 2nd, 2026 | <span style="color:#00ff00">Minor</span> |
+| [V1.7.0](https://gamebanana.com/updates/465042) | October 16th, 2026 | <span style="color:#00ff00">Minor</span> |
+| [v1.7.1](https://gamebanana.com/updates/465201) | October 17th, 2026 | <span style="color:#ffff00">Patch</span> |
+| [v1.7.2](https://gamebanana.com/updates/466463) | October 19th, 2026 | <span style="color:#ffff00">Patch</span> |
+| [v1.8.0](https://gamebanana.com/updates/466798) | October 20th, 2026 | <span style="color:#00ff00">Minor</span> |
 
 #
 ### Version 1.1.0
@@ -114,3 +118,6 @@
     Added descriptions to some entries in the Mod Options menu.
 ### Version 1.7.2
     Entities following the player will not curve to the player's respawn point on death instead of moving in a straight line.
+### Version 1.8.0
+    Re-added the test map (players must edit .everestignore for it to load).
+    Added Custom Register Area Complete Triggers.

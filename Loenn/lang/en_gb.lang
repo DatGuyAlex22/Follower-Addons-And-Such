@@ -65,3 +65,7 @@ triggers.FollowerAddons/CrystalHeartBlockfieldTrigger.placements.name.normal=Cry
 
 # Disable Hair Gravity Trigger
 triggers.FollowerAddons/DisableHairGravityTrigger.placements.name.normal=Disable Player Hair Gravity
+
+# Custom Register Area Complete Trigger
+triggers.FollowerAddons/CustomRegisterAreaCompleteTrigger.placements.name.collectStrawberries=Custom Register Area Complete Trigger (Collect Strawberries)
+triggers.FollowerAddons/CustomRegisterAreaCompleteTrigger.placements.name.registerInSave=Custom Register Area Complete Trigger (Register In Save)
