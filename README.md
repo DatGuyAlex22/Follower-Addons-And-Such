@@ -1,6 +1,8 @@
 <!-- [GitHub](https://github.com/DatGuyAlex22/Follower-Addons-And-Such) -->
 <!-- [GameBanana](https://gamebanana.com/mods/711016) -->
 
+#
+[![](https://gamebanana.com/mods/embeddables/711016?type=sd_image)](https://gamebanana.com/mods/711016)
 # Table of Contents
 - [<u>Table of Contents</u>](#table-of-contents)
 - [<u>Update Structure</u>](#update-structure)
@@ -46,23 +48,24 @@
   ClordCourtesy -- No --> ScrapIdeaNextUpdate
 ```
 # Update History
-| Version Number | Date Published | Relevance | Olympus | Zipped File |
-| :------------: | :------------: | :-------: | :-----: | :---------: |
-| v1.1.0 | August 29th, 2026 | Minor | [Install](everest:https://gamebanana.com/mmdl/1800416,Mod,711016) |
-| v1.2.0 | September 2nd, 2026 | Minor |
-| v1.2.1 | September 2nd, 2026 | Patch |
-| v1.3.0 | September 3rd, 2026 | Minor |
-| v1.3.1 | September 3rd, 2026 | Patch |
-| v1.3.2 | September 5th, 2026 | Patch |
-| v1.3.3 | September 6th, 2026 | Patch |
-| v1.3.4 | September 9th, 2026 | Patch |
-| v1.4.0 | September 14th, 2026 | Minor |
-| v1.5.0 | September 18th, 2026 | Minor |
-| v1.6.0 | October 2nd, 2026 | Minor |
-| V1.7.0 | October 16th, 2026 | Minor |
-| v1.7.1 | October 17th, 2026 | Patch |
-| v1.7.2 | October 19th, 2026 | Patch |
-| v1.8.0 | October 20th, 2026 | Minor |
+| Version Number | Date Published | Relevance | Direct Download |
+| :------------: | :------------: | :-------: | :-------------: |
+| v1.0.0 | August 28th, 2026 | Release | [Download ZIP](https://gamebanana.com/dl/1800416) |
+| v1.1.0 | August 29th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1801518) |
+| v1.2.0 | September 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1805577) |
+| v1.2.1 | September 2nd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1805582) |
+| v1.3.0 | September 3rd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1806415) |
+| v1.3.1 | September 3rd, 2026 | Patch | YAML Error |
+| v1.3.2 | September 5th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1808367) |
+| v1.3.3 | September 6th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1809245) |
+| v1.3.4 | September 9th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1812123) |
+| v1.4.0 | September 14th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1817016) |
+| v1.5.0 | September 18th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1820064) |
+| v1.6.0 | October 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1835188) |
+| V1.7.0 | October 16th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1851464) |
+| v1.7.1 | October 17th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1851904) |
+| v1.7.2 | October 19th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1856315) |
+| v1.8.0 | October 20th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1857521) |
 
 #
 ### Version 1.1.0
