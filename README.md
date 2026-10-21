@@ -9,20 +9,20 @@
 # Update Structure
 ```mermaid
  flowchart TD
-  Ready{Is the update ready\nfor GameBanana?}
+  Ready{Is the update ready for GameBanana?}
 
-  AddNew([Does the update add\nany new content?])
-  MajorMinorUpdate([Is the update\nbackwards-compatible?])
-  UpdatePatch[Increase PATCH\nversion number.]
-  UpdateMinor[Increase MINOR\nversion number.]
-  UpdateMajor[Increase MAJOR\nversion number.]
+  AddNew([Does the update add any new content?])
+  MajorMinorUpdate([Is the update backwards-compatible?])
+  UpdatePatch[Increase PATCH version number.]
+  UpdateMinor[Increase MINOR version number.]
+  UpdateMajor[Increase MAJOR version number.]
 
-  FixSelf([Are there issues that\nyou can't fix yourself?])
-  OnInternet([Has anyone has a\nsimilar issue online?])
-  AskClord[Ask the Celeste\nDiscord, if neccesary.]
+  FixSelf([Are there issues that you can't fix yourself?])
+  OnInternet([Has anyone has a similar issue online?])
+  AskClord[Ask the Celeste Discord, if neccesary.]
   ClordCourtesy([Can you use help from the Celeste Discord in a respectful, useful way?])
   IntegrateClord[Integrate feedback.]
-  CreditClord[Credit any users\nthat gave help,\nunless asked not to.]
+  CreditClord[Credit any users that gave help, unless asked not to.]
   ScrapIdeaNextUpdate[Remove the relevant code until it has been brought into a functioning state.]
   UseOnline[Try to examine the issue and any given solutions.]
 
