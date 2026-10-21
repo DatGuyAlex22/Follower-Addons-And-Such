@@ -126,7 +126,7 @@
 ### Version 1.7.1
     Added descriptions to some entries in the Mod Options menu.
 ### Version 1.7.2
-    Entities following the player will no2 curve to the player's respawn point on death instead of moving in a straight line.
+    Entities following the player will now curve to the player's respawn point on death instead of moving in a straight line.
 ### Version 1.8.0
     Re-added the test map (players must edit .everestignore for it to load).
     Added Custom Register Area Complete Triggers.
