@@ -51,7 +51,7 @@
 # Update History
 | Version Number | Date Published | Relevance | Direct Download |
 | :------------: | :------------: | :-------: | :-------------: |
-| v1.0.0 | August 28th, 2026 | Release | [Download ZIP](https://gamebanana.com/dl/1800416) |
+| v1.0.0 | August 29th, 2026 | Release | [Download ZIP](https://gamebanana.com/dl/1800416) |
 | v1.1.0 | August 29th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1801518) |
 | v1.2.0 | September 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1805577) |
 | v1.2.1 | September 2nd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1805582) |
@@ -126,7 +126,7 @@
 ### Version 1.7.1
     Added descriptions to some entries in the Mod Options menu.
 ### Version 1.7.2
-    Entities following the player will not curve to the player's respawn point on death instead of moving in a straight line.
+    Entities following the player will no2 curve to the player's respawn point on death instead of moving in a straight line.
 ### Version 1.8.0
     Re-added the test map (players must edit .everestignore for it to load).
     Added Custom Register Area Complete Triggers.
