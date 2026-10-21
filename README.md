@@ -18,11 +18,13 @@
   UpdateMajor[Increase MAJOR\nversion number.]
 
   FixSelf([Are there issues that\nyou can't fix yourself?])
+  OnInternet([Has anyone has a\nsimilar issue online?])
   AskClord[Ask the Celeste\nDiscord, if neccesary.]
   ClordCourtesy([Can you use help from the Celeste Discord in a respectful, useful way?])
   IntegrateClord[Integrate feedback.]
   CreditClord[Credit any users\nthat gave help,\nunless asked not to.]
   ScrapIdeaNextUpdate[Remove the relevant code until it has been brought into a functioning state.]
+  UseOnline[Try to examine the issue and any given solutions.]
 
   Ready -- Yes --> AddNew
   Ready -- No --> FixSelf
@@ -31,8 +33,11 @@
   MajorMinorUpdate -- Yes --> UpdateMinor
   MajorMinorUpdate -- No --> UpdateMajor
 
-  FixSelf -- Yes --> AskClord
+  FixSelf -- Yes --> OnInternet
   FixSelf -- No --> ScrapIdeaNextUpdate
+  OnInternet -- Yes --> UseOnline
+  UseOnline --> CreditClord
+  OnInternet -- No --> AskClord
   ScrapIdeaNextUpdate --> AddNew
   AskClord --> ClordCourtesy
   ClordCourtesy -- Yes --> IntegrateClord
