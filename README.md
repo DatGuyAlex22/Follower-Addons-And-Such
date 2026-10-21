@@ -1,5 +1,6 @@
 <!-- [GitHub](https://github.com/DatGuyAlex22/Follower-Addons-And-Such) -->
 <!-- [GameBanana](https://gamebanana.com/mods/711016) -->
+![](https://drive.google.com/file/d/1GlKlWqTpuHQ_Izwq6kSPE1cktiecjM4R/view)
 
 # Table of Contents
 - [<u>Table of Contents</u>](#table-of-contents)
@@ -9,20 +10,20 @@
 # Update Structure
 ```mermaid
  flowchart TD
-  Ready{Is the update ready for GameBanana?}
+  Ready{Is the update ready\nfor GameBanana?}
 
-  AddNew([Does the update add any new content?])
-  MajorMinorUpdate([Is the update backwards-compatible?])
-  UpdatePatch[Increase PATCH version number.]
-  UpdateMinor[Increase MINOR version number.]
-  UpdateMajor[Increase MAJOR version number.]
+  AddNew([Does the update add\nany new content?])
+  MajorMinorUpdate([Is the update\nbackwards-compatible?])
+  UpdatePatch[Increase PATCH\nversion number.]
+  UpdateMinor[Increase MINOR\nversion number.]
+  UpdateMajor[Increase MAJOR\nversion number.]
 
-  FixSelf([Are there issues that you can't fix yourself?])
-  OnInternet([Has anyone has a similar issue online?])
-  AskClord[Ask the Celeste Discord, if neccesary.]
+  FixSelf([Are there issues that\nyou can't fix yourself?])
+  OnInternet([Has anyone has a\nsimilar issue online?])
+  AskClord[Ask the Celeste\nDiscord, if neccesary.]
   ClordCourtesy([Can you use help from the Celeste Discord in a respectful, useful way?])
   IntegrateClord[Integrate feedback.]
-  CreditClord[Credit any users that gave help, unless asked not to.]
+  CreditClord[Credit any users\nthat gave help,\nunless asked not to.]
   ScrapIdeaNextUpdate[Remove the relevant code until it has been brought into a functioning state.]
   UseOnline[Try to examine the issue and any given solutions.]
 
@@ -122,7 +123,7 @@
 ### Version 1.7.1
     Added descriptions to some entries in the Mod Options menu.
 ### Version 1.7.2
-    Entities following the player will not curve to the player's respawn point on death instead of moving in a straight line.
+    Entities following the player will now curve to the player's respawn point on death instead of moving in a straight line.
 ### Version 1.8.0
     Re-added the test map (players must edit .everestignore for it to load).
     Added Custom Register Area Complete Triggers.
