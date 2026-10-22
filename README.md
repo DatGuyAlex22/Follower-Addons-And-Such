@@ -29,12 +29,14 @@
   ScrapIdeaNextUpdate[Remove the relevant code until it has been brought into a functioning state.]
   UseOnline[Try to examine the issue and any given solutions.]
 
+  PublishUpdate{Publish the update to GameBanana.}
+
   Ready -- Yes --> AddNew
   Ready -- No --> FixSelf
   AddNew -- Yes --> MajorMinorUpdate
   AddNew -- No --> UpdatePatch
-  MajorMinorUpdate -- Yes --> UpdateMinor
   MajorMinorUpdate -- No --> UpdateMajor
+  MajorMinorUpdate -- Yes --> UpdateMinor
 
   FixSelf -- Yes --> OnInternet
   FixSelf -- No --> ScrapIdeaNextUpdate
@@ -47,6 +49,10 @@
   IntegrateClord --> CreditClord
   CreditClord --> AddNew
   ClordCourtesy -- No --> ScrapIdeaNextUpdate
+
+  UpdatePatch --> PublishUpdate
+  UpdateMinor --> PublishUpdate
+  UpdateMajor --> PublishUpdate
 ```
 # Update History
 | Version Number | Date Published | Relevance | Direct Download |
@@ -67,6 +73,7 @@
 | v1.7.1 | October 17th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1851904) |
 | v1.7.2 | October 19th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1856315) |
 | v1.8.0 | October 20th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1857521) |
+| v1.8.1 | October 21st, 2026 | Patch| [Download ZIP](https://gamebanana.com/dl/1858669) |
 
 #
 ### Version 1.1.0
@@ -130,3 +137,5 @@
 ### Version 1.8.0
     Re-added the test map (players must edit .everestignore for it to load).
     Added Custom Register Area Complete Triggers.
+### Version 1.8.1
+    Added .everestignore to the list of automagically zipped files to ensure the test map stays hidden.
