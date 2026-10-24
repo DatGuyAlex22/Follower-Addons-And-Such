@@ -288,7 +288,7 @@ public class FollowerAddonsModule : EverestModule
             {
                 if (!Session.OverMaxFollowerBuffer)
                 {
-                    Logger.Warn("Follower Addons & Such", "The amount of entites following the player has exceded the limit set in Mod Options (MAX: " + Settings.MaxFollowersBuffer + "), some features have been temporarily paused for performance.");
+                    Logger.Warn("FollowerAddons", "The amount of entites following the player has exceded the limit set in Mod Options (MAX: " + Settings.MaxFollowersBuffer + "), some features have been temporarily paused for performance.");
                 }
                 Session.OverMaxFollowerBuffer = true;
             }
@@ -296,7 +296,7 @@ public class FollowerAddonsModule : EverestModule
             {
                 if (Session.OverMaxFollowerBuffer)
                 {
-                    Logger.Info("Follower Addons & Such", "Features unpaused.");
+                    Logger.Info("FollowerAddons", "Features unpaused.");
                 }
                 Session.OverMaxFollowerBuffer = false;
             }
@@ -549,7 +549,7 @@ public class FollowerAddonsModule : EverestModule
     public static void CountDash(On.Celeste.Player.orig_DashBegin orig, Player self)
     {
         orig(self);
-        Logger.Debug("Follower Addons & Such", "CountDash hook exists but isn't used.");
+        Logger.Debug("FollowerAddons", "CountDash hook exists but isn't used.");
     }
 
     public static void InstantBerryCollect(On.Celeste.Strawberry.orig_Update orig, Strawberry self)

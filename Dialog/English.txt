@@ -13,10 +13,10 @@
 	MODSETTING_MASTERSWITCH_CONTEXT= Must be enabled to use any features below.
 
 	MODSETTING_STRAWBERRYCOLLECTSPEED= Strawberry Collection Type
-		MODSETTING_STRAWBERRYCOLLECTSPEED_CONTEXT=
-								- Default: Strawberries will collect when the player stands on safe ground{n}
-								- Prevent: Strawberries will only collect at the end of each level{n}
-								- Instant: Strawberries will collect as soon as the player touches them, even mid-air
+		MODSETTING_STRAWBERRYCOLLECTSPEED_DEFAULT= Default Behavior
+		MODSETTING_STRAWBERRYCOLLECTSPEED_PREVENT= Prevent Collection
+		MODSETTING_STRAWBERRYCOLLECTSPEED_INSTANT= Collect Instantly
+
 	MODSETTING_KEEPONDEATH= Keep Strawberries After Death
 	MODSETTING_STOPSEEDPOPPING= Prevent Strawberry Seed Popping
 	MODSETTING_FOLLOWERSBUFFER= Follower Lag Buffer
@@ -26,7 +26,7 @@
 	MODSETTING_FOLLOWERSCALE= Follower Scale Multiplier
 	MODSETTING_CREATEHOLDABLETRAILS= Enable Holdable Trails
 	MODSETTING_HOLDABLESCALE= Holdable Scale Multiplier
-	MODSETTING_STOPHAIRFALL= Disable Hair Gravity
+	MODSETTING_STOPHAIRFALL= Disable Player Hair Gravity
 	MODSETTING_INCREASEDEPTH= Place Resized Entities Further Back
 		MODSETTING_INCREASEDEPTH_CONTEXT= Whether or not to render entities following{n}the player behind background tiles for visibility
 	MODSETTING_STOPHEARTCOLLECT= Prevent Crystal Heart Collection

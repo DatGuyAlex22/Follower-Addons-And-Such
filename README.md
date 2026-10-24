@@ -57,7 +57,7 @@
 # Update History
 | Version Number | Date Published | Relevance | Direct Download |
 | :------------: | :------------: | :-------: | :-------------: |
-| v1.0.0 | August 29th, 2026 | Release | [Download ZIP](https://gamebanana.com/dl/1800416) |
+| v1.0.0 | August 29th, 2026 | Major | [Download ZIP](https://gamebanana.com/dl/1800416) |
 | v1.1.0 | August 29th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1801518) |
 | v1.2.0 | September 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1805577) |
 | v1.2.1 | September 2nd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1805582) |
@@ -73,7 +73,8 @@
 | v1.7.1 | October 17th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1851904) |
 | v1.7.2 | October 19th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1856315) |
 | v1.8.0 | October 20th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1857521) |
-| v1.8.1 | October 21st, 2026 | Patch| [Download ZIP](https://gamebanana.com/dl/1858669) |
+| v1.8.1 | October 21st, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1858669) |
+| v1.9.0 | October 24th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1862362) |
 
 #
 ### Version 1.1.0
@@ -138,4 +139,14 @@
     Re-added the test map (players must edit .everestignore for it to load).
     Added Custom Register Area Complete Triggers.
 ### Version 1.8.1
-    Added .everestignore to the list of automagically zipped files to ensure the test map stays hidden.
+    Added .everestignore to the list of automagically zipped files to ensure the test map stays hidden.    
+    Added .everestignore.
+### Version 1.9.0
+    Added 'fa_setfollowerscale' to the debug console. This also allows players to set follower sizes to be outside of the range set in the Mod Options menu.
+    Added 'fa_setholdablescale' to the debug console. This also allows players to set holdable sizes to be outside of the range set in the Mod Options menu.
+    Added 'fa_setmaxfollowers' to the debug console. This also allows players to set the 'Follower Lag Buffer' option to be outside of the range set in the Mod Options menu.
+    Removed the padding from the subheaders in the Cosmetic Options menu.
+    The 'Strawberry Collection Type' option now uses dialog keys for it's options.
+    Removed the description from the 'Strawberry Collection Type' option.
+    The 'Follower Lag Buffer' option will now show 'X Followers' instead of just a number.
+    Renamed the 'Disable Hair Gravity' option to 'Disable Player Hair Gravity.'

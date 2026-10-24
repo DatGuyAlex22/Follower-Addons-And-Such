@@ -114,13 +114,12 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
         Array.Sort((int[])emunValues);
         LeniencyOptionsEntry.Add(CollectSpeedEntry = new TextMenu.Slider(
             Dialog.Clean("MODSETTING_STRAWBERRYCOLLECTSPEED"),
-            (int i) => emunValues.GetValue(i).ToString(),
+            (int i) => Dialog.Clean($"MODSETTING_STRAWBERRYCOLLECTSPEED_{emunValues.GetValue(i)}".ToUpper()),
             0,
             emunValues.Length - 1,
             CollectSpeed
         ));
         CollectSpeedEntry.Change(speed => CollectSpeed = speed);
-        CollectSpeedEntry.AddDescription(LeniencyOptionsEntry, menu, Dialog.Clean("MODSETTING_STRAWBERRYCOLLECTSPEED_CONTEXT"));
 
         // Keep On Death
         LeniencyOptionsEntry.Add(KeepOnDeathEntry = new TextMenu.OnOff(
@@ -139,7 +138,7 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
         // Followers Before Pausing Features
         LeniencyOptionsEntry.Add(MaxFollowersBufferEntry = new TextMenu.Slider(
             Dialog.Clean("MODSETTING_FOLLOWERSBUFFER"),
-            (int i) => i.ToString(),
+            (int i) => $"{i} Follower{((i == 1) ? "" : "s")}",
             0,
             100,
             MaxFollowersBuffer
@@ -178,7 +177,7 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
         ));
         FollowerScaleEntry.Change(scale => FollowerScale = scale);
 
-        CosmeticOptionsEntry.Add(new TextMenu.SubHeader(Dialog.Clean("MODSETTING_HEADER_HOLDABLE"), true));
+        CosmeticOptionsEntry.Add(new TextMenu.SubHeader(Dialog.Clean("MODSETTING_HEADER_HOLDABLE"), false));
 
         CosmeticOptionsEntry.Add(CreateHoldableTrailsEntry = new TextMenu.OnOff(
             Dialog.Clean("MODSETTING_CREATEHOLDABLETRAILS"),
@@ -195,10 +194,7 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
         ));
         HoldableScaleEntry.Change(scale => HoldableScale = scale);
 
-        CosmeticOptionsEntry.Add(new TextMenu.SubHeader(
-            Dialog.Clean("MODSETTING_HEADER_PLAYER"),
-            true
-        ));
+        CosmeticOptionsEntry.Add(new TextMenu.SubHeader(Dialog.Clean("MODSETTING_HEADER_PLAYER"), false));
 
         CosmeticOptionsEntry.Add(StopHairFallEntry = new TextMenu.OnOff(
             Dialog.Clean("MODSETTING_STOPHAIRFALL"),
@@ -206,10 +202,7 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
         ));
         StopHairFallEntry.Change(fall => StopHairFall = fall ? true : false);
 
-        CosmeticOptionsEntry.Add(new TextMenu.SubHeader(
-            Dialog.Clean("MODSETTING_HEADER_OTHER"),
-            true
-        ));
+        CosmeticOptionsEntry.Add(new TextMenu.SubHeader(Dialog.Clean("MODSETTING_HEADER_OTHER"), false));
 
         CosmeticOptionsEntry.Add(IncreaseDepthEntry = new TextMenu.OnOff(
             Dialog.Clean("MODSETTING_INCREASEDEPTH"),

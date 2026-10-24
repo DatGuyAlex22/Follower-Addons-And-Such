@@ -1,7 +1,5 @@
 ﻿using FMOD.Studio;
 using Monocle;
-using System;
-using System.Collections.Generic;
 
 namespace Celeste.Mod.FollowerAddons;
 
@@ -19,7 +17,7 @@ public static class Commands
                 (scene as Level).Session.DoNotLoad.CopyTo(IDs);
                 for (int i = 0; i < IDs.Length; i++)
                 {
-                    Logger.Debug("Follower Addons & Such", "Cleared item with ID " + IDs[i].ToString());
+                    Logger.Debug("FollowerAddons", "Cleared item with ID " + IDs[i].ToString());
                 }
             }
             (scene as Level).Session.DoNotLoad.Clear();
@@ -59,5 +57,23 @@ public static class Commands
         {
             eventInstance.setParameterValue(parameter, value);
         }
+    }
+
+    [Command("fa_setfollowerscale", "Sets the 'Follower Scale Multiplier' option. Keep in mind that the actual value used will be divided by 10.")]
+    public static void SetFollowerScale(int scale = 10)
+    {
+        FollowerAddonsModule.Settings.FollowerScale = scale;
+    }
+
+    [Command("fa_setholdablescale", "Sets the 'Holdable Scale Multiplier' option. Keep in mind that the actual value used will be divided by 10.")]
+    public static void SetHoldableScale(int scale = 10)
+    {
+        FollowerAddonsModule.Settings.HoldableScale = scale;
+    }
+
+    [Command("fa_setmaxfollowers", "Sets the 'Follower Lag Buffer' option.")]
+    public static void SetMaxFollowerBuffer(int buffer = 0)
+    {
+        FollowerAddonsModule.Settings.MaxFollowersBuffer = buffer;
     }
 }
