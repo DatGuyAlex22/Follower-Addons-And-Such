@@ -9,6 +9,7 @@ namespace Celeste.Mod.FollowerAddons;
 
 public class FollowerAddonsModule : EverestModule
 {
+    public static Random RNG = new();
     public class EntityDepthFinder : Component
     {
         public int depth;
@@ -177,7 +178,6 @@ public class FollowerAddonsModule : EverestModule
                 sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * new Vector2(Math.Sign(sprite.Scale.X), Math.Sign(sprite.Scale.Y)), 0.5f);
             }
         }
-        orig(self);
 
         Color trailColor = Color.White;
         bool fallback = false;
@@ -280,7 +280,6 @@ public class FollowerAddonsModule : EverestModule
                 TrailManager.Add(self.Entity, trailColor, 1);
             }
         }
-        orig(self);
 
         if (self.Leader != null)
         {
@@ -301,126 +300,97 @@ public class FollowerAddonsModule : EverestModule
                 Session.OverMaxFollowerBuffer = false;
             }
         }
-        orig(self);
     }
 
     public static void HoldableUpdateOverride(On.Celeste.Holdable.orig_Update orig, Holdable self)
     {
-        orig(self);
+        if (self.Entity is not { } entity)
+        {
+            // component without an entity, bail
+            orig(self);
+            return;
+        }
 
-        Sprite sprite = self.Entity.Get<Sprite>();
-        if (Session.TriggerTriggerHoldableSizeOverride && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities"))
+        if (entity.Get<Sprite>() is not { } sprite)
         {
-            if ((self.IsHeld || Session.HoldablesAlwaysSized) && (sprite != null))
+            // all the operations depend on the entity having a sprite, bail if we don't have one
+            orig(self);
+            return;
+        }
+
+        bool isCnetEntity = entity.GetType().Namespace == "Celeste.Mod.CelesteNet.Client.Entities";
+        if (isCnetEntity || !(Session.TriggerTriggerHoldableSizeOverride || Settings.MasterSwitch))
+            sprite.Scale = Calc.Approach(sprite.Scale, sprite.Scale.Sign(), 0.5f);
+        else
+        {
+            if (self.IsHeld || (Session.TriggerTriggerHoldableSizeOverride && Session.HoldablesAlwaysSized))
             {
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * Session.TriggeredHoldableSizeOverride, 1f);
-                if ((sprite.Scale != Vector2.One) && Settings.IncreaseDepth)
-                {
-                    self.Entity.Depth = Depths.BGTerrain + 100;
-                }
+                float scaleTarget;
+                if (Session.TriggerTriggerHoldableSizeOverride)
+                    scaleTarget = Session.TriggeredHoldableSizeOverride;
+                else if (Settings.MasterSwitch)
+                    scaleTarget = Settings.HoldableScale / 10f;
+                else
+                    // unreachable, but sure
+                    scaleTarget = 1f;
+
+                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * scaleTarget, 1f);
+                if (sprite.Scale != Vector2.One && Settings.IncreaseDepth)
+                    entity.Depth = Depths.BGTerrain + 100;
             }
             else
-            {
                 sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One, 0.5f);
-            }
         }
-        else if (Settings.MasterSwitch && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities"))
+
+        if (isCnetEntity)
         {
-            if (self.IsHeld && (sprite != null))
-            {
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * Settings.HoldableScale / 10, 1f);
-                if ((sprite.Scale != Vector2.One) && Settings.IncreaseDepth)
-                {
-                    self.Entity.Depth = Depths.BGTerrain + 100;
-                }
-            }
-            else
-            {
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One, 0.5f);
-            }
+            // we don't really want to touch cnet so we bail
+            orig(self);
+            return;
         }
-        else if (sprite != null)
+
+        if (!self.IsHeld)
         {
-            sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * new Vector2(Math.Sign(sprite.Scale.X), Math.Sign(sprite.Scale.Y)), 0.5f);
+            // nothing to do
+            orig(self);
+            return;
         }
-        orig(self);
+
+        bool holdableTrailsEnabled = Settings.MasterSwitch && Settings.CreateHoldableTrails;
 
         Color trailColor = Color.White;
         bool fallback = false;
-        if (Session.TriggeredHoldableTrails)
+
+        if (Session.TriggeredHoldableTrails || holdableTrailsEnabled)
         {
-            foreach (TrailColorController controller in self.Entity.Scene.Entities.FindAll<TrailColorController>())
+            foreach (TrailColorController controller in entity.Scene.Entities.FindAll<TrailColorController>())
             {
-                if (controller.entitiesSplit.Contains<string>(self.Entity.GetType().Name))
-                {
-                    trailColor = controller.color;
-                    fallback = true;
-                    break;
-                }
+                if (!controller.entitiesSplit.Contains(entity.GetType().Name))
+                    continue;
+
+                if (holdableTrailsEnabled && entity.SourceData == null)
+                    continue;
+
+                trailColor = controller.color;
+                fallback = true;
+                break;
             }
             if (!fallback)
-            {
-                if (self.Entity is TheoCrystal)
-                {
-                    trailColor = Color.ForestGreen;
-                }
-                else if (self.Entity is Glider)
-                {
-                    trailColor = Color.DeepSkyBlue;
-                }
-                else
-                {
-                    Random rng = new Random();
-                    trailColor.R = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.G = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.B = (byte)Calc.Range(rng, 0, 255);
-                }
-            }
+                trailColor = GetTrailColor(entity);
 
-            if (self.Scene.OnInterval(0.1f) && self.IsHeld && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities"))
-            {
-                TrailManager.Add(self.Entity, trailColor, 1);
-            }
+            if (self.Scene.OnInterval(0.1f))
+                TrailManager.Add(entity, trailColor, 1);
         }
-        else if (Settings.MasterSwitch && Settings.CreateHoldableTrails)
+        orig(self);
+
+        return;
+
+        static Color GetTrailColor(Entity entity) => entity switch
         {
-            foreach (TrailColorController controller in self.Entity.Scene.Entities.FindAll<TrailColorController>())
-            {
-                if (self.Entity.SourceData != null)
-                {
-                    if (controller.entitiesSplit.Contains<string>(self.Entity.GetType().Name))
-                    {
-                        trailColor = controller.color;
-                        fallback = true;
-                        break;
-                    }
-                }
-            }
-            if (!fallback)
-            {
-                if (self.Entity is TheoCrystal)
-                {
-                    trailColor = Color.ForestGreen;
-                }
-                else if (self.Entity is Glider)
-                {
-                    trailColor = Color.DeepSkyBlue;
-                }
-                else
-                {
-                    Random rng = new Random();
-                    trailColor.R = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.G = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.B = (byte)Calc.Range(rng, 0, 255);
-                }
-            }
-
-            if (self.Scene.OnInterval(0.1f) && self.IsHeld && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities"))
-            {
-                TrailManager.Add(self.Entity, trailColor, 1);
-            }
-            orig(self);
-        }
+            TheoCrystal => Color.ForestGreen,
+            Glider => Color.DeepSkyBlue,
+            _ => new Color(RNG.Range(0, 255), RNG.Range(0, 255), RNG.Range(0, 255), 255),
+        };
     }
 
     public static void AddBerryToSave(On.Celeste.Strawberry.orig_OnPlayer orig, Strawberry self, Player player)
