@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <AssemblyName>FollowerAddons</AssemblyName>
-        <RootNamespace>Celeste.Mod.FollowerAddons</RootNamespace>
+        <AssemblyName>Follower Addons &amp; Such</AssemblyName>
+        <RootNamespace>Celeste.Mod.FollowerAddons&amp;Such</RootNamespace>
         <LangVersion>latest</LangVersion>
         <CelestePrefix Condition="'$(CelestePrefix)' == '' And Exists('..\..\..\Celeste.dll')">..\..\..</CelestePrefix>
         <CelestePrefix Condition="'$(CelestePrefix)' == ''">lib-stripped</CelestePrefix>
@@ -45,7 +45,7 @@
     </Target>
     
     <PropertyGroup>
-        <PathMap>$(MSBuildProjectDirectory)=FollowerAddons/</PathMap>
+        <PathMap>$(MSBuildProjectDirectory)=Follower Addons &amp; Such/</PathMap>
     </PropertyGroup>
 
     <!-- Inline task used to create a .zip for the mod -->

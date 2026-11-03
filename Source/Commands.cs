@@ -59,16 +59,16 @@ public static class Commands
         }
     }
 
-    [Command("fa_setfollowerscale", "Sets the 'Follower Scale Multiplier' option. Keep in mind that the actual value used will be divided by 10.")]
-    public static void SetFollowerScale(int scale = 10)
+    [Command("fa_setfollowerscale", "Sets the 'Follower Scale Multiplier' option.")]
+    public static void SetFollowerScale(float scale = 1f)
     {
-        FollowerAddonsModule.Settings.FollowerScale = scale;
+        FollowerAddonsModule.Settings.FollowerScale = (int)(scale * 10);
     }
 
-    [Command("fa_setholdablescale", "Sets the 'Holdable Scale Multiplier' option. Keep in mind that the actual value used will be divided by 10.")]
-    public static void SetHoldableScale(int scale = 10)
+    [Command("fa_setholdablescale", "Sets the 'Holdable Scale Multiplier' option.")]
+    public static void SetHoldableScale(float scale = 1f)
     {
-        FollowerAddonsModule.Settings.HoldableScale = scale;
+        FollowerAddonsModule.Settings.HoldableScale = (int)(scale * 10);
     }
 
     [Command("fa_setmaxfollowers", "Sets the 'Follower Lag Buffer' option.")]

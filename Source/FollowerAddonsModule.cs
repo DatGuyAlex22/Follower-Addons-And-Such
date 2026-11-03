@@ -4,12 +4,13 @@ using FMOD.Studio;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Celeste.Mod.FollowerAddons;
 
 public class FollowerAddonsModule : EverestModule
 {
-    public static Random RNG = new();
     public class EntityDepthFinder : Component
     {
         public int depth;
@@ -19,6 +20,17 @@ public class FollowerAddonsModule : EverestModule
             this.depth = depth;
         }
     }
+
+    public class EntityScaleManager : Component
+    {
+        public bool scaleReset;
+
+        public EntityScaleManager(bool scaleReset = false) : base(false, false)
+        {
+            this.scaleReset = scaleReset;
+        }
+    }
+
     public static FollowerAddonsModule Instance { get; private set; }
 
     public override Type SettingsType => typeof(FollowerAddonsModuleSettings);
@@ -34,260 +46,214 @@ public class FollowerAddonsModule : EverestModule
 
     public override void Load()
     {
-        On.Celeste.Strawberry.OnCollect += StopStrawberryCollect;
-        On.Celeste.Strawberry.Update += InstantBerryCollect;
+        On.Celeste.Follower.Update += FollowerUpdateOverride;
 
+        On.Celeste.Strawberry.OnCollect += StrawberryCollectOverride;
+        On.Celeste.Strawberry.Update += StrawberryUpdateOverride;
+        On.Celeste.Strawberry.OnPlayer += StrawberryOnPlayerOverride;
+        On.Celeste.StrawberrySeed.Update += StrawberrySeedUpdateOverride;
         On.Celeste.Level.RegisterAreaComplete += StrawberriesOverrideCollect;
 
-        On.Celeste.Follower.Update += FollowerUpdateOverride;
         On.Celeste.Holdable.Update += HoldableUpdateOverride;
-        On.Celeste.Strawberry.OnPlayer += AddBerryToSave;
-        On.Celeste.Player.Die += RemoveDoNotLoad;
 
-        On.Celeste.HeartGem.Collect += StopHeartCollect;
+        On.Celeste.Player.UpdateHair += PlayerUpdateHairOverride;
+        On.Celeste.Player.Die += PlayerDieOverride;
+        Everest.Events.Player.OnSpawn += PlayerRespawnOverride;
 
-        Everest.Events.Player.OnSpawn += RestoreBerriesOnRespawn;
+        On.Celeste.HeartGem.Collect += CrystalHeartCollectOverride;
 
-        On.Celeste.StrawberrySeed.Update += StopSeedReturn;
-
-        On.Celeste.Player.UpdateHair += StopHairFalling;
-
-        On.Celeste.Audio.CreateInstance += PauseSoundsOnBuffer;
+        On.Celeste.Audio.CreateInstance += AudioCreateInstanceOverride;
     }
 
     public override void Unload()
     {
-        On.Celeste.Strawberry.OnCollect -= StopStrawberryCollect;
-        On.Celeste.Strawberry.Update -= InstantBerryCollect;
+        On.Celeste.Follower.Update -= FollowerUpdateOverride;
 
+        On.Celeste.Strawberry.OnCollect -= StrawberryCollectOverride;
+        On.Celeste.Strawberry.Update -= StrawberryUpdateOverride;
+        On.Celeste.Strawberry.OnPlayer -= StrawberryOnPlayerOverride;
+        On.Celeste.StrawberrySeed.Update -= StrawberrySeedUpdateOverride;
         On.Celeste.Level.RegisterAreaComplete -= StrawberriesOverrideCollect;
 
-        On.Celeste.Follower.Update -= FollowerUpdateOverride;
         On.Celeste.Holdable.Update -= HoldableUpdateOverride;
-        On.Celeste.Strawberry.OnPlayer -= AddBerryToSave;
-        On.Celeste.Player.Die -= RemoveDoNotLoad;
 
-        On.Celeste.HeartGem.Collect -= StopHeartCollect;
+        On.Celeste.Player.UpdateHair -= PlayerUpdateHairOverride;
+        On.Celeste.Player.Die -= PlayerDieOverride;
+        Everest.Events.Player.OnSpawn -= PlayerRespawnOverride;
 
-        Everest.Events.Player.OnSpawn -= RestoreBerriesOnRespawn;
+        On.Celeste.HeartGem.Collect -= CrystalHeartCollectOverride;
 
-        On.Celeste.StrawberrySeed.Update -= StopSeedReturn;
-
-        On.Celeste.Player.UpdateHair -= StopHairFalling;
-
-        On.Celeste.Audio.CreateInstance -= PauseSoundsOnBuffer;
+        On.Celeste.Audio.CreateInstance -= AudioCreateInstanceOverride;
     }
 
-    public static void StopStrawberryCollect(On.Celeste.Strawberry.orig_OnCollect orig, Strawberry self)
-    {
-        if (Session.TriggeredStopCollect)
-        {
-            if (Session.StrawberriesOverrideCollect)
-            {
-                orig(self);
-            }
-        }
-        else if (Settings.MasterSwitch)
-        {
-            if ((Settings.CollectSpeed == (int)FollowerAddonsModuleSettings.CollectSpeeds.Default) || Session.StrawberriesOverrideCollect && !Session.TriggeredStopCollect)
-            {
-                orig(self);
-            }
-            else if ((Settings.CollectSpeed == (int)FollowerAddonsModuleSettings.CollectSpeeds.Instant) && Session.OverMaxFollowerBuffer)
-            {
-                orig(self);
-            }
-        }
-        else
-        {
-            orig(self);
-        }
-    }
-
-    public static void StrawberriesOverrideCollect(On.Celeste.Level.orig_RegisterAreaComplete orig, Level self)
-    {
-        Session.StrawberriesOverrideCollect = true;
-        if (Session.OverMaxFollowerBuffer)
-        {
-            foreach (Strawberry berry in self.Entities.FindAll<Strawberry>())
-            {
-                if ((berry.Follower.Leader != null) && (berry.Follower.FollowIndex > Settings.MaxFollowersBuffer) && !berry.collected)
-                {
-                    if (berry.Follower.Leader == self.Entities.FindFirst<Player>().Leader)
-                    {
-                        self.Session.Strawberries.Add(berry.ID);
-                        berry.RemoveSelf();
-                    }
-                }
-            }
-        }
-        orig(self);
-        Session.StrawberriesOverrideCollect = false;
-    }
-
+    // Follower Hooks
     public static void FollowerUpdateOverride(On.Celeste.Follower.orig_Update orig, Follower self)
     {
-        if (self.Entity.Get<EntityDepthFinder>() == null)
+        // TODO:
+        // - Add support for MTextures
+
+        Leader leader = self.Leader;
+        bool hasLeader = (leader != null);
+
+        if (!hasLeader)
         {
-            self.Entity.Add(new EntityDepthFinder(self.Entity.Depth));
+            orig(self);
+            return;
         }
-        orig(self);
-        Sprite sprite = self.Entity.Get<Sprite>();
-        if (Session.TriggerTriggerFollowerSizeOverride)
+
+        bool leaderIsPlayer = (leader.Entity.GetType() == typeof(Player));
+
+        Entity entity = self.Entity;
+        bool hasEntity = (entity != null);
+        Color trailColor = Color.Transparent;
+        const int increasedDepth = Depths.BGTerrain + 100;
+
+        if (!hasEntity)
         {
-            if (((self.Leader != null) || Session.FollowersAlwaysSized) && (sprite != null) && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities"))
+            orig(self);
+            return;
+        }
+
+        List<Sprite> sprites = entity.Components.GetAll<Sprite>().ToList();
+        bool hasSprite = (sprites.Count > 0);
+
+        if (!hasSprite)
+        {
+            orig(self);
+            return;
+        }
+
+        EverestModuleMetadata CelesteNet = new()
+        {
+            Name = "CelesteNet.Client",
+            Version = new Version(2, 0)
+        };
+        bool isCelesteNetEntity = (Everest.Loader.DependencyLoaded(CelesteNet) && entity.GetType().Module.Name == CelesteNet.Name);
+
+        if (isCelesteNetEntity)
+        {
+            orig(self);
+            return;
+        }
+
+        if (entity.Get<EntityDepthFinder>() == null)
+        {
+            entity.Add(new EntityDepthFinder(entity.Depth));
+            Logger.Verbose("FollowerAddons", $"Added new EntityDepthFinder to {entity}.");
+        }
+        EntityDepthFinder entityDepthFinder = entity.Get<EntityDepthFinder>();
+        bool hasEntityDepthFinder = (entityDepthFinder != null);
+
+        if (entity.Get<EntityScaleManager>() == null)
+        {
+            entity.Add(new EntityScaleManager());
+            Logger.Verbose("FollowerAddons", $"Added new EntityScaleManager to {entity}.");
+        }
+        EntityScaleManager entityScaleManager = entity.Get<EntityScaleManager>();
+        bool hasEntityScaleManager = (entityScaleManager != null);
+
+        if (!hasEntityDepthFinder || !hasEntityScaleManager)
+        {
+            orig(self);
+            return;
+        }
+
+        foreach (Sprite sprite in sprites)
+        {
+            if ((!Settings.MasterSwitch || Settings.FollowerScale == 10) && (Session.FollowerSizeOverride == 1))
             {
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * Session.TriggeredFollowerSizeOverride, 0.5f);
-                if ((sprite.Scale != Vector2.One) && Settings.IncreaseDepth)
+                if (!entityScaleManager.scaleReset)
                 {
-                    self.Entity.Depth = Depths.BGTerrain + 100;
+                    sprite.Scale = Vector2.One;
                 }
-                else if (self.Entity.Get<EntityDepthFinder>() != null)
-                {
-                    if ((self.Entity.Depth != Depths.BGTerrain + 100) && (self.Entity.Depth != self.Entity.Get<EntityDepthFinder>().depth))
-                    {
-                        self.Entity.Get<EntityDepthFinder>().depth = self.Entity.Depth;
-                    }
-                    self.Entity.Depth = self.Entity.Get<EntityDepthFinder>().depth;
-                }
+                entityScaleManager.scaleReset = true;
             }
-        }
-        else if (Settings.MasterSwitch)
-        {
-            if ((self.Leader != null) && (sprite != null) && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities"))
+            else
             {
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * Settings.FollowerScale / 10, 0.5f);
-                if ((sprite.Scale != Vector2.One) && Settings.IncreaseDepth)
-                {
-                    self.Entity.Depth = Depths.BGTerrain + 100;
-                }
-                else if (self.Entity.Get<EntityDepthFinder>() != null)
-                {
-                    if ((self.Entity.Depth != Depths.BGTerrain + 100) && (self.Entity.Depth != self.Entity.Get<EntityDepthFinder>().depth))
-                    {
-                        self.Entity.Get<EntityDepthFinder>().depth = self.Entity.Depth;
-                    }
-                    self.Entity.Depth = self.Entity.Get<EntityDepthFinder>().depth;
-                }
+                entityScaleManager.scaleReset = false;
             }
-        }
-        else
-        {
-            if (sprite != null)
+
+            Vector2 scale = Vector2.One;
+            if ((Session.FollowerSizeOverride != 1) && (leaderIsPlayer || Session.HoldablesAlwaysSized))
             {
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * new Vector2(Math.Sign(sprite.Scale.X), Math.Sign(sprite.Scale.Y)), 0.5f);
+                scale = Calc.Approach(sprite.Scale, Vector2.One * Session.FollowerSizeOverride / 10, 0.25f);
+            }
+            else if (Settings.MasterSwitch && leaderIsPlayer)
+            {
+                scale = Calc.Approach(sprite.Scale, Vector2.One * Settings.FollowerScale / 10, 0.25f);
+            }
+
+            if (!entityScaleManager.scaleReset)
+            {
+                sprite.Scale = scale;
+            }
+
+            if ((entity.Depth != entityDepthFinder.depth) && (entity.Depth != increasedDepth))
+            {
+                entityDepthFinder.depth = entity.Depth;
+            }
+
+            if (Settings.MasterSwitch && Settings.IncreaseDepth && (sprite.Scale != Vector2.One) && leaderIsPlayer)
+            {
+                entity.Depth = increasedDepth;
+            }
+            else
+            {
+                entity.Depth = entityDepthFinder.depth;
             }
         }
 
-        Color trailColor = Color.White;
-        bool fallback = false;
-        if (Session.TriggeredFollowerTrails)
+        if (((Settings.MasterSwitch && Settings.CreateFollowerTrails) || Session.FollowerTrails) && leaderIsPlayer)
         {
-            foreach (TrailColorController controller in self.Entity.Scene.Entities.FindAll<TrailColorController>())
+            switch (entity)
             {
-                if (controller.entitiesSplit.Contains<string>(self.Entity.GetType().Name))
-                {
-                    trailColor = controller.color;
-                    fallback = true;
-                    break;
-                }
-            }
-            if (!fallback)
-            {
-                if (self.Entity is Strawberry)
-                {
-                    if (self.EntityAs<Strawberry>().Golden)
+                case Strawberry:
+                    if ((entity as Strawberry).Golden)
                     {
-                        trailColor = Color.Goldenrod;
+                        trailColor = Color.DarkGoldenrod;
+                        break;
                     }
-                    else if (self.EntityAs<Strawberry>().Moon)
+                    else if ((entity as Strawberry).Moon)
                     {
                         trailColor = Color.Green;
+                        break;
                     }
                     else
                     {
                         trailColor = Color.IndianRed;
+                        break;
                     }
-                }
-                else if (self.Entity is Key)
-                {
-                    trailColor = Color.DarkGoldenrod;
-                }
-                else if (self.Entity is StrawberrySeed)
-                {
+                case StrawberrySeed:
                     trailColor = Color.LimeGreen;
-                }
-                else
-                {
-                    Random rng = new Random();
-                    trailColor.R = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.G = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.B = (byte)Calc.Range(rng, 0, 255);
-                }
+                    break;
+                case Key:
+                    trailColor = Color.DarkGoldenrod;
+                    break;
             }
-
-            if (self.Scene.OnInterval(0.1f) && (self.Leader != null) && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities") && !Session.OverMaxFollowerBuffer)
+            foreach (TrailColorController controller in entity.Scene.Entities.FindAll<TrailColorController>())
             {
-                TrailManager.Add(self.Entity, trailColor, 1);
-            }
-        }
-        else if (Settings.MasterSwitch && Settings.CreateFollowerTrails)
-        {
-            foreach (TrailColorController controller in self.Entity.Scene.Entities.FindAll<TrailColorController>())
-            {
-                if (controller.entitiesSplit.Contains<string>(self.Entity.GetType().Name))
+                if (controller.entitiesSplit.Contains<string>(entity.GetType().Name))
                 {
                     trailColor = controller.color;
-                    fallback = true;
                     break;
                 }
             }
-            if (!fallback)
+
+            if (entity.SceneAs<Level>().OnInterval(0.1f) && !Session.OverMaxFollowerBuffer)
             {
-                if (self.Entity is Strawberry)
-                {
-                    if (self.EntityAs<Strawberry>().Golden)
-                    {
-                        trailColor = Color.Goldenrod;
-                    }
-                    else if (self.EntityAs<Strawberry>().Moon)
-                    {
-                        trailColor = Color.Green;
-                    }
-                    else
-                    {
-                        trailColor = Color.IndianRed;
-                    }
-                }
-                else if (self.Entity is Key)
-                {
-                    trailColor = Color.DarkGoldenrod;
-                }
-                else if (self.Entity is StrawberrySeed)
-                {
-                    trailColor = Color.YellowGreen;
-                }
-                else
-                {
-                    Random rng = new Random();
-                    trailColor.R = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.G = (byte)Calc.Range(rng, 0, 255);
-                    trailColor.B = (byte)Calc.Range(rng, 0, 255);
-                }
-            }
-            if (self.Scene.OnInterval(0.1f) && (self.Leader != null) && (self.Entity.GetType().Namespace != "Celeste.Mod.CelesteNet.Client.Entities") && !Session.OverMaxFollowerBuffer)
-            {
-                TrailManager.Add(self.Entity, trailColor, 1);
+                TrailManager.Add(entity, trailColor, 1f);
             }
         }
 
-        if (self.Leader != null)
+        orig(self);
+
+        if (leaderIsPlayer)
         {
-            if (self.Leader.Followers.Count >= Settings.MaxFollowersBuffer)
+            if (leader.Followers.Count > Settings.MaxFollowersBuffer)
             {
                 if (!Session.OverMaxFollowerBuffer)
                 {
-                    Logger.Warn("FollowerAddons", "The amount of entites following the player has exceded the limit set in Mod Options (MAX: " + Settings.MaxFollowersBuffer + "), some features have been temporarily paused for performance.");
+                    Logger.Warn("FollowerAddons", $"The amount of entites following the player has exceded the limit set in Mod Options (MAX: {Settings.MaxFollowersBuffer}), some features have been temporarily paused for performance.");
                 }
                 Session.OverMaxFollowerBuffer = true;
             }
@@ -302,112 +268,217 @@ public class FollowerAddonsModule : EverestModule
         }
     }
 
-    public static void HoldableUpdateOverride(On.Celeste.Holdable.orig_Update orig, Holdable self)
+    // Strawberry Hooks
+    public static void StrawberryCollectOverride(On.Celeste.Strawberry.orig_OnCollect orig, Strawberry self)
     {
-        if (self.Entity is not { } entity)
+        if (Session.StrawberriesOverrideCollect || (Settings.CollectSpeed == (int)FollowerAddonsModuleSettings.CollectSpeeds.Default))
         {
-            // component without an entity, bail
             orig(self);
-            return;
         }
-
-        if (entity.Get<Sprite>() is not { } sprite)
+        else if (Settings.MasterSwitch && (Settings.CollectSpeed == (int)FollowerAddonsModuleSettings.CollectSpeeds.Instant) && Session.OverMaxFollowerBuffer)
         {
-            // all the operations depend on the entity having a sprite, bail if we don't have one
             orig(self);
-            return;
         }
-
-        bool isCnetEntity = entity.GetType().Namespace == "Celeste.Mod.CelesteNet.Client.Entities";
-        if (isCnetEntity || !(Session.TriggerTriggerHoldableSizeOverride || Settings.MasterSwitch))
-            sprite.Scale = Calc.Approach(sprite.Scale, sprite.Scale.Sign(), 0.5f);
-        else
-        {
-            if (self.IsHeld || (Session.TriggerTriggerHoldableSizeOverride && Session.HoldablesAlwaysSized))
-            {
-                float scaleTarget;
-                if (Session.TriggerTriggerHoldableSizeOverride)
-                    scaleTarget = Session.TriggeredHoldableSizeOverride;
-                else if (Settings.MasterSwitch)
-                    scaleTarget = Settings.HoldableScale / 10f;
-                else
-                    // unreachable, but sure
-                    scaleTarget = 1f;
-
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One * scaleTarget, 1f);
-                if (sprite.Scale != Vector2.One && Settings.IncreaseDepth)
-                    entity.Depth = Depths.BGTerrain + 100;
-            }
-            else
-                sprite.Scale = Calc.Approach(sprite.Scale, Vector2.One, 0.5f);
-        }
-
-        if (isCnetEntity)
-        {
-            // we don't really want to touch cnet so we bail
-            orig(self);
-            return;
-        }
-
-        if (!self.IsHeld)
-        {
-            // nothing to do
-            orig(self);
-            return;
-        }
-
-        bool holdableTrailsEnabled = Settings.MasterSwitch && Settings.CreateHoldableTrails;
-
-        Color trailColor = Color.White;
-        bool fallback = false;
-
-        if (Session.TriggeredHoldableTrails || holdableTrailsEnabled)
-        {
-            foreach (TrailColorController controller in entity.Scene.Entities.FindAll<TrailColorController>())
-            {
-                if (!controller.entitiesSplit.Contains(entity.GetType().Name))
-                    continue;
-
-                if (holdableTrailsEnabled && entity.SourceData == null)
-                    continue;
-
-                trailColor = controller.color;
-                fallback = true;
-                break;
-            }
-            if (!fallback)
-                trailColor = GetTrailColor(entity);
-
-            if (self.Scene.OnInterval(0.1f))
-                TrailManager.Add(entity, trailColor, 1);
-        }
-        orig(self);
-
-        return;
-
-        static Color GetTrailColor(Entity entity) => entity switch
-        {
-            TheoCrystal => Color.ForestGreen,
-            Glider => Color.DeepSkyBlue,
-            _ => new Color(RNG.Range(0, 255), RNG.Range(0, 255), RNG.Range(0, 255), 255),
-        };
     }
-
-    public static void AddBerryToSave(On.Celeste.Strawberry.orig_OnPlayer orig, Strawberry self, Player player)
+    public static void StrawberryUpdateOverride(On.Celeste.Strawberry.orig_Update orig, Strawberry self)
     {
-        if ((Settings.MasterSwitch && Settings.KeepOnDeath) || Session.TriggeredKeepOnDeath)
+        if (Session.OverMaxFollowerBuffer || Session.StopCollect || (self.Follower.Leader == null) || !Settings.MasterSwitch)
         {
-            Session session = (self.Scene as Level).Session;
-            session.DoNotLoad.Add(self.ID);
+            orig(self);
+            return;
+        }
+
+        if ((Settings.CollectSpeed == (int)FollowerAddonsModuleSettings.CollectSpeeds.Instant) && (!self.Golden || Settings.EvenIfGolden)) // Exclude goldens by default.
+        {
+            Session.StrawberriesOverrideCollect = true;
+            self.OnCollect();
+            Session.StrawberriesOverrideCollect = false;
+        }
+
+        orig(self);
+    }
+    public static void StrawberryOnPlayerOverride(On.Celeste.Strawberry.orig_OnPlayer orig, Strawberry self, Player player)
+    {
+        if ((Settings.MasterSwitch && Settings.KeepOnDeath) || Session.KeepOnDeath)
+        {
+            (self.Scene as Level).Session.DoNotLoad.Add(self.ID);
         }
         orig(self, player);
     }
+    public static void StrawberrySeedUpdateOverride(On.Celeste.StrawberrySeed.orig_Update orig, StrawberrySeed self)
+    {
+        if ((Settings.MasterSwitch && Settings.StopSeedPopping) || Session.StopSeedPopping)
+        {
+            self.canLoseTimer += Engine.DeltaTime;
+        }
 
-    public static PlayerDeadBody RemoveDoNotLoad(On.Celeste.Player.orig_Die orig, Player self, Vector2 direction, bool evenIfInvincible, bool registerDeathInStats)
+        orig(self);
+    }
+    public static void StrawberriesOverrideCollect(On.Celeste.Level.orig_RegisterAreaComplete orig, Level self)
+    {
+        Session.StrawberriesOverrideCollect = true;
+        if (Session.OverMaxFollowerBuffer)
+        {
+            foreach (Strawberry berry in self.Entities.FindAll<Strawberry>())
+            {
+                if ((berry.Follower.Leader.Entity.GetType() == typeof(Player)) && (berry.Follower.FollowIndex > Settings.MaxFollowersBuffer) && !berry.collected)
+                {
+                    self.Session.Strawberries.Add(berry.ID);
+                    berry.RemoveSelf();
+                }
+            }
+        }
+        orig(self);
+        Session.StrawberriesOverrideCollect = false;
+    }
+
+    // Holdable Hooks
+    public static void HoldableUpdateOverride(On.Celeste.Holdable.orig_Update orig, Holdable self)
+    {
+        Entity entity = self.Entity;
+        bool hasEntity = (entity != null);
+        bool isHeld = self.IsHeld;
+        Color trailColor = Color.Transparent;
+        const int increasedDepth = Depths.BGTerrain + 100;
+
+        if (!hasEntity)
+        {
+            orig(self);
+            return;
+        }
+
+        List<Sprite> sprites = entity.Components.GetAll<Sprite>().ToList();
+        bool hasSprite = (sprites.Count > 0);
+
+        if (!hasSprite)
+        {
+            orig(self);
+            return;
+        }
+
+        EverestModuleMetadata CelesteNet = new()
+        {
+            Name = "CelesteNet.Client",
+            Version = new Version(2, 0)
+        };
+        bool isCelesteNetEntity = (Everest.Loader.DependencyLoaded(CelesteNet) && entity.GetType().Module.Name == CelesteNet.Name);
+
+        if (isCelesteNetEntity)
+        {
+            orig(self);
+            return;
+        }
+
+        if (entity.Get<EntityDepthFinder>() == null)
+        {
+            entity.Add(new EntityDepthFinder(entity.Depth));
+            Logger.Verbose("FollowerAddons", $"Added new EntityDepthFinder to {entity}.");
+        }
+        EntityDepthFinder entityDepthFinder = entity.Get<EntityDepthFinder>();
+        bool hasEntityDepthFinder = (entityDepthFinder != null);
+
+        if (entity.Get<EntityScaleManager>() == null)
+        {
+            entity.Add(new EntityScaleManager());
+            Logger.Verbose("FollowerAddons", $"Added new EntityScaleManager to {entity}.");
+        }
+        EntityScaleManager entityScaleManager = entity.Get<EntityScaleManager>();
+        bool hasEntityScaleManager = (entityScaleManager != null);
+
+        if (!hasEntityDepthFinder || !hasEntityScaleManager)
+        {
+            orig(self);
+            return;
+        }
+
+        foreach (Sprite sprite in sprites)
+        {
+            if ((!Settings.MasterSwitch || Settings.HoldableScale == 10) && (Session.HoldableSizeOverride == 1))
+            {
+                if (!entityScaleManager.scaleReset)
+                {
+                    sprite.Scale = Vector2.One;
+                }
+                entityScaleManager.scaleReset = true;
+            }
+            else
+            {
+                entityScaleManager.scaleReset = false;
+            }
+
+            Vector2 scale = Vector2.One;
+            if ((Session.HoldableSizeOverride != 1) && (isHeld || Session.HoldablesAlwaysSized))
+            {
+                scale = Calc.Approach(sprite.Scale, Vector2.One * Session.HoldableSizeOverride / 10, 0.25f);
+            }
+            else if (Settings.MasterSwitch && isHeld)
+            {
+                scale = Calc.Approach(sprite.Scale, Vector2.One * Settings.HoldableScale / 10, 0.25f);
+            }
+
+            if (!entityScaleManager.scaleReset)
+            {
+                sprite.Scale = scale;
+            }
+
+            if ((entity.Depth != entityDepthFinder.depth) && (entity.Depth != increasedDepth))
+            {
+                entityDepthFinder.depth = entity.Depth;
+            }
+
+            if (Settings.MasterSwitch && Settings.IncreaseDepth && (sprite.Scale != Vector2.One) && isHeld)
+            {
+                entity.Depth = increasedDepth;
+            }
+            else
+            {
+                entity.Depth = entityDepthFinder.depth;
+            }
+        }
+
+        if (((Settings.MasterSwitch && Settings.CreateHoldableTrails) || Session.HoldableTrails) && isHeld)
+        {
+            switch (entity)
+            {
+                case TheoCrystal:
+                    trailColor = Color.ForestGreen;
+                    break;
+                case Glider:
+                    trailColor = Color.CornflowerBlue;
+                    break;
+            }
+            foreach (TrailColorController controller in entity.Scene.Entities.FindAll<TrailColorController>())
+            {
+                if (controller.entitiesSplit.Contains<string>(entity.GetType().Name))
+                {
+                    trailColor = controller.color;
+                    break;
+                }
+            }
+
+            if (entity.SceneAs<Level>().OnInterval(0.1f) && !Session.OverMaxFollowerBuffer)
+            {
+                TrailManager.Add(entity, trailColor, 1f);
+            }
+        }
+
+        orig(self);
+    }
+
+    // Player Hooks
+    public static void PlayerUpdateHairOverride(On.Celeste.Player.orig_UpdateHair orig, Player self, bool applyGravity)
+    {
+        if ((Settings.MasterSwitch && Settings.StopHairFall) || Session.StopHairFall)
+        {
+            applyGravity = false;
+        }
+        orig(self, applyGravity);
+    }
+    public static PlayerDeadBody PlayerDieOverride(On.Celeste.Player.orig_Die orig, Player self, Vector2 direction, bool evenIfInvincible, bool registerDeathInStats)
     {
         if (!SaveData.Instance.Assists.Invincible)
         {
-            if ((Settings.KeepOnDeath && Settings.MasterSwitch) || Session.TriggeredKeepOnDeath)
+            if ((Settings.KeepOnDeath && Settings.MasterSwitch) || Session.KeepOnDeath)
             {
                 bool hasGolden = false;
                 foreach (Follower follower in self.Leader.Followers)
@@ -417,7 +488,11 @@ public class FollowerAddonsModule : EverestModule
                         if (follower.EntityAs<Strawberry>().Golden)
                         {
                             hasGolden = true;
+                            break;
                         }
+                    }
+                    if (!hasGolden || Settings.EvenIfGolden)
+                    {
                         Vector2 start = self.SceneAs<Level>().Session.RespawnPoint.Value - new Vector2(0f, 20f);
                         Alarm.Set(follower.Entity, 0.15f, () =>
                         {
@@ -454,10 +529,9 @@ public class FollowerAddonsModule : EverestModule
         }
         return orig(self, direction, evenIfInvincible, registerDeathInStats);
     }
-
-    public static void RestoreBerriesOnRespawn(Player player)
+    public static void PlayerRespawnOverride(Player player)
     {
-        if ((Settings.MasterSwitch && Settings.KeepOnDeath) || Session.TriggeredKeepOnDeath)
+        if ((Settings.MasterSwitch && Settings.KeepOnDeath) || Session.KeepOnDeath)
         {
             player.Leader.PastPoints.Clear();
             if (Leader.storedBerries != null)
@@ -477,9 +551,10 @@ public class FollowerAddonsModule : EverestModule
         }
     }
 
-    public static void StopHeartCollect(On.Celeste.HeartGem.orig_Collect orig, HeartGem self, Player player)
+    // Crystal Heart Hook
+    public static void CrystalHeartCollectOverride(On.Celeste.HeartGem.orig_Collect orig, HeartGem self, Player player)
     {
-        if (!Settings.StopHeartCollect && !Session.TriggeredStopHeartCollect)
+        if (!Settings.StopHeartCollect && !Session.StopHeartCollect)
         {
             MapMetaModeProperties mapMetaModeProperties = ((self.SceneAs<Level>() != null) ? self.SceneAs<Level>().Session.MapData.Meta : null);
             if (mapMetaModeProperties != null && mapMetaModeProperties.HeartIsEnd.HasValue)
@@ -498,45 +573,8 @@ public class FollowerAddonsModule : EverestModule
         }
     }
 
-    public static void StopSeedReturn(On.Celeste.StrawberrySeed.orig_Update orig, StrawberrySeed self)
-    {
-        if (Settings.StopSeedPopping || Session.TriggeredStopSeedPopping)
-        {
-            self.canLoseTimer += Engine.DeltaTime;
-        }
-        orig(self);
-    }
-
-    public static void StopHairFalling(On.Celeste.Player.orig_UpdateHair orig, Player self, bool applyGravity)
-    {
-        if ((Settings.MasterSwitch && Settings.StopHairFall) || Session.StopHairFall)
-        {
-            applyGravity = false;
-        }
-        orig(self, applyGravity);
-    }
-
-    public static void CountDash(On.Celeste.Player.orig_DashBegin orig, Player self)
-    {
-        orig(self);
-        Logger.Debug("FollowerAddons", "CountDash hook exists but isn't used.");
-    }
-
-    public static void InstantBerryCollect(On.Celeste.Strawberry.orig_Update orig, Strawberry self)
-    {
-        orig(self);
-        if (Settings.MasterSwitch && (Settings.CollectSpeed == (int)FollowerAddonsModuleSettings.CollectSpeeds.Instant) && (!self.Golden || Settings.EvenIfGolden) && !Session.TriggeredStopCollect && self.Follower.Leader != null)
-        {
-            Session.StrawberriesOverrideCollect = true;
-            if (!Session.OverMaxFollowerBuffer)
-            {
-                self.OnCollect();
-            }
-            Session.StrawberriesOverrideCollect = false;
-        }
-    }
-
-    public static EventInstance PauseSoundsOnBuffer(On.Celeste.Audio.orig_CreateInstance orig, string path, Vector2? position)
+    // Other Hooks
+    public static EventInstance AudioCreateInstanceOverride(On.Celeste.Audio.orig_CreateInstance orig, string path, Vector2? position)
     {
         if ((path != "event:/game/general/strawberry_get") || !Session.OverMaxFollowerBuffer)
         {

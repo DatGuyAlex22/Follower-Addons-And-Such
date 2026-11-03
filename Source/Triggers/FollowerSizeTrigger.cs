@@ -26,8 +26,7 @@ public class FollowerSizeTrigger : Trigger
     public override void OnEnter(Player player)
     {
         base.OnEnter(player);
-        FollowerAddonsModule.Session.TriggerTriggerFollowerSizeOverride = true;
-        FollowerAddonsModule.Session.TriggeredFollowerSizeOverride = sizeMult;
+        FollowerAddonsModule.Session.FollowerSizeOverride = sizeMult;
         FollowerAddonsModule.Session.FollowersAlwaysSized = alwaysScale;
     }
 
@@ -36,7 +35,7 @@ public class FollowerSizeTrigger : Trigger
         base.OnLeave(player);
         if (resetOnLeave)
         {
-            FollowerAddonsModule.Session.TriggerTriggerFollowerSizeOverride = false;
+            FollowerAddonsModule.Session.FollowerSizeOverride = 1;
             FollowerAddonsModule.Session.FollowersAlwaysSized =! alwaysScale;
         }
     }

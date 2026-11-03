@@ -5,6 +5,4 @@
 # Github workflow file if you're using GitHub actions for publishing.
 Source/
 FollowerAddons.zip
-Maps/
-Graphics/Atlases/Gui/
-Graphics/Atlases/Endscreens/
+Graphics/

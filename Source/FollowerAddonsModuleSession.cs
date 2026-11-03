@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
 namespace Celeste.Mod.FollowerAddons;
@@ -6,31 +7,27 @@ public class FollowerAddonsModuleSession : EverestModuleSession
 {
     public bool StrawberriesOverrideCollect;
 
-    public bool TriggeredStopCollect;
+    public bool StopCollect;
 
-    public bool TriggeredKeepOnDeath;
+    public bool KeepOnDeath;
 
-    public bool TriggerTriggerFollowerSizeOverride;
+    public float FollowerSizeOverride = 1;
 
     public bool FollowersAlwaysSized;
 
-    public float TriggeredFollowerSizeOverride;
+    public bool FollowerTrails;
 
-    public bool TriggeredFollowerTrails;
-
-    public bool TriggerTriggerHoldableSizeOverride;
+    public float HoldableSizeOverride = 1;
 
     public bool HoldablesAlwaysSized;
 
-    public float TriggeredHoldableSizeOverride;
-
-    public bool TriggeredHoldableTrails;
+    public bool HoldableTrails;
 
     public bool OverMaxFollowerBuffer;
 
-    public bool TriggeredStopSeedPopping;
+    public bool StopSeedPopping;
 
     public bool StopHairFall;
 
-    public bool TriggeredStopHeartCollect;
+    public bool StopHeartCollect;
 }

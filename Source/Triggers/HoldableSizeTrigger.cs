@@ -26,8 +26,7 @@ public class HoldableSizeTrigger : Trigger
     public override void OnEnter(Player player)
     {
         base.OnEnter(player);
-        FollowerAddonsModule.Session.TriggerTriggerHoldableSizeOverride = true;
-        FollowerAddonsModule.Session.TriggeredHoldableSizeOverride = sizeMult;
+        FollowerAddonsModule.Session.HoldableSizeOverride = sizeMult;
         FollowerAddonsModule.Session.HoldablesAlwaysSized = alwaysScale;
     }
 
@@ -36,7 +35,7 @@ public class HoldableSizeTrigger : Trigger
         base.OnLeave(player);
         if (resetOnLeave)
         {
-            FollowerAddonsModule.Session.TriggerTriggerHoldableSizeOverride = false;
+            FollowerAddonsModule.Session.HoldableSizeOverride = 1;
             FollowerAddonsModule.Session.HoldablesAlwaysSized = !alwaysScale;
         }
     }

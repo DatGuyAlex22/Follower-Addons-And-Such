@@ -6,6 +6,9 @@ namespace Celeste.Mod.FollowerAddons;
 
 public class FollowerAddonsModuleSettings : EverestModuleSettings
 {
+    [YamlIgnore]
+    public bool CelesteNetLoaded;
+
     private TextMenu.Slider CollectSpeedEntry;
     public int CollectSpeed { get; set; }
     public enum CollectSpeeds
@@ -58,8 +61,6 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
     [SettingIgnore]
     public int MaxFollowersBuffer { get; set; } = 10;
     private TextMenu.Slider MaxFollowersBufferEntry;
-
-    public bool SessionStrawberries { get; set; } = false;
 
     private bool _MasterSwitch;
     public bool MasterSwitch

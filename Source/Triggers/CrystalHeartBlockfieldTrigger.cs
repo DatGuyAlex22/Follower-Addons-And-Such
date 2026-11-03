@@ -22,11 +22,11 @@ public class CrystalHeartBlockfieldTrigger : Trigger
         base.OnEnter(player);
         if (enable)
         {
-            FollowerAddonsModule.Session.TriggeredStopHeartCollect = true;
+            FollowerAddonsModule.Session.StopHeartCollect = true;
         }
         else
         {
-            FollowerAddonsModule.Session.TriggeredStopHeartCollect = false;
+            FollowerAddonsModule.Session.StopHeartCollect = false;
         }
     }
 
@@ -37,11 +37,11 @@ public class CrystalHeartBlockfieldTrigger : Trigger
         {
             if (enable)
             {
-                FollowerAddonsModule.Session.TriggeredStopHeartCollect = false;
+                FollowerAddonsModule.Session.StopHeartCollect = false;
             }
             else
             {
-                FollowerAddonsModule.Session.TriggeredStopHeartCollect = true;
+                FollowerAddonsModule.Session.StopHeartCollect = true;
             }
         }
     }

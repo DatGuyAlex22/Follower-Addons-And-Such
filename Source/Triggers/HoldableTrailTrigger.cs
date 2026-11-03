@@ -22,11 +22,11 @@ public class HoldableTrailTrigger : Trigger
         base.OnEnter(player);
         if (triggerOn)
         {
-            FollowerAddonsModule.Session.TriggeredHoldableTrails = true;
+            FollowerAddonsModule.Session.HoldableTrails = true;
         }
         else
         {
-            FollowerAddonsModule.Session.TriggeredHoldableTrails = false;
+            FollowerAddonsModule.Session.HoldableTrails = false;
         }
     }
 
@@ -36,11 +36,11 @@ public class HoldableTrailTrigger : Trigger
         {
             if (triggerOn)
             {
-                FollowerAddonsModule.Session.TriggeredHoldableTrails = false;
+                FollowerAddonsModule.Session.HoldableTrails = false;
             }
             else
             {
-                FollowerAddonsModule.Session.TriggeredHoldableTrails = true;
+                FollowerAddonsModule.Session.HoldableTrails = true;
             }
         }
         base.OnLeave(player);

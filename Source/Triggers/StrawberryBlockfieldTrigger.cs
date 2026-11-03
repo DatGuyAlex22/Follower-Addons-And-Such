@@ -27,20 +27,20 @@ public class StrawberryBlockfieldTrigger : Trigger
 
         if (triggerOn)
         {
-            FollowerAddonsModule.Session.TriggeredStopCollect = true;
+            FollowerAddonsModule.Session.StopCollect = true;
         }
         else
         {
-            FollowerAddonsModule.Session.TriggeredStopCollect = false;
+            FollowerAddonsModule.Session.StopCollect = false;
         }
 
         if (keepOnDeath)
         {
-            FollowerAddonsModule.Session.TriggeredKeepOnDeath = true;
+            FollowerAddonsModule.Session.KeepOnDeath = true;
         }
         else
         {
-            FollowerAddonsModule.Session.TriggeredKeepOnDeath = false;
+            FollowerAddonsModule.Session.KeepOnDeath = false;
         }
     }
 
@@ -52,16 +52,16 @@ public class StrawberryBlockfieldTrigger : Trigger
         {
             if (triggerOn)
             {
-                FollowerAddonsModule.Session.TriggeredStopCollect = false;
+                FollowerAddonsModule.Session.StopCollect = false;
             }
             else
             {
-                FollowerAddonsModule.Session.TriggeredStopCollect = true;
+                FollowerAddonsModule.Session.StopCollect = true;
             }
 
             if (keepOnDeath)
             {
-                FollowerAddonsModule.Session.TriggeredKeepOnDeath = false;
+                FollowerAddonsModule.Session.KeepOnDeath = false;
             }
         }
     }

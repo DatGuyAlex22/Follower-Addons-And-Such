@@ -1,6 +1,9 @@
-- DLL: bin/FollowerAddons.dll
+- DLL: bin/Follower Addons & Such.dll
   Name: Follower Addons & Such
-  Version: 1.9.1
+  Version: 1.10.0
   Dependencies:
     - Name: Everest
       Version: 1.6642.0
+  OptionalDependencies:
+    - Name: CelesteNet.Client
+      Version: 2.0.0

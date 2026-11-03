@@ -22,11 +22,11 @@ public class FollowerTrailTrigger : Trigger
         base.OnEnter(player);
         if (triggerOn)
         {
-            FollowerAddonsModule.Session.TriggeredFollowerTrails = true;
+            FollowerAddonsModule.Session.FollowerTrails = true;
         }
         else
         {
-            FollowerAddonsModule.Session.TriggeredFollowerTrails = false;
+            FollowerAddonsModule.Session.FollowerTrails = false;
         }
     }
 
@@ -36,11 +36,11 @@ public class FollowerTrailTrigger : Trigger
         {
             if (triggerOn)
             {
-                FollowerAddonsModule.Session.TriggeredFollowerTrails = false;
+                FollowerAddonsModule.Session.FollowerTrails = false;
             }
             else
             {
-                FollowerAddonsModule.Session.TriggeredFollowerTrails = true;
+                FollowerAddonsModule.Session.FollowerTrails = true;
             }
         }
         base.OnLeave(player);

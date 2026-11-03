@@ -20,7 +20,7 @@
 	MODSETTING_KEEPONDEATH= Keep Strawberries After Death
 	MODSETTING_STOPSEEDPOPPING= Prevent Strawberry Seed Popping
 	MODSETTING_FOLLOWERSBUFFER= Follower Lag Buffer
-		MODSETTING_FOLLOWERSBUFFER_CONTEXT= The maximum amount of entities that can be following the player at{n}one time before limiting some features of this mod for performance
+		MODSETTING_FOLLOWERSBUFFER_CONTEXT= The maximum amount of entities that can be following the player at{n}one time before limiting some features of this mod for performance.
 
 	MODSETTING_CREATEFOLLOWERTRAILS= Enable Follower Trails
 	MODSETTING_FOLLOWERSCALE= Follower Scale Multiplier
@@ -28,7 +28,7 @@
 	MODSETTING_HOLDABLESCALE= Holdable Scale Multiplier
 	MODSETTING_STOPHAIRFALL= Disable Player Hair Gravity
 	MODSETTING_INCREASEDEPTH= Place Resized Entities Further Back
-		MODSETTING_INCREASEDEPTH_CONTEXT= Whether or not to render entities following{n}the player behind background tiles for visibility
+		MODSETTING_INCREASEDEPTH_CONTEXT= Whether or not to render entities following{n}the player behind background tiles for visibility.
 	MODSETTING_STOPHEARTCOLLECT= Prevent Crystal Heart Collection
 
 	MODSETTING_EVENIFGOLDEN= Leniency For Golden Strawberries
