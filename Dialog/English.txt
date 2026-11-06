@@ -33,3 +33,5 @@
 
 	MODSETTING_EVENIFGOLDEN= Leniency For Golden Strawberries
 		MODSETTING_EVENIFGOLDEN_CONTEXT= Whether or not to change the behavior of Golden Strawberries.{n}Only recommended for use in Debug Mode.
+	MODSETTING_SESSIONSTRAWBERRIES= Save Strawberries Between Sessions
+		MODSETTING_SESSIONSTRAWBERRIES_CONTEXT= Whether or not to save the player's strawberries when saving and quitting.

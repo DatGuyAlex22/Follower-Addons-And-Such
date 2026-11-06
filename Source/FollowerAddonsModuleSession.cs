@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using YamlDotNet.Serialization;
 
 namespace Celeste.Mod.FollowerAddons;
 
@@ -30,4 +29,6 @@ public class FollowerAddonsModuleSession : EverestModuleSession
     public bool StopHairFall;
 
     public bool StopHeartCollect;
+
+    public List<string> StoredStrawberries = new List<string>();
 }

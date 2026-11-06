@@ -1,6 +1,6 @@
 - DLL: bin/Follower Addons & Such.dll
   Name: Follower Addons & Such
-  Version: 1.10.0
+  Version: 1.11.0
   Dependencies:
     - Name: Everest
       Version: 1.6642.0

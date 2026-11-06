@@ -12,20 +12,20 @@
 # Update Structure
 ```mermaid
  flowchart TD
-  Ready{Is the update ready\nfor GameBanana?}
+  Ready{Is the update ready for GameBanana?}
 
-  AddNew([Does the update add\nany new content?])
-  MajorMinorUpdate([Is the update\nbackwards-compatible?])
-  UpdatePatch[Increase PATCH\nversion number.]
-  UpdateMinor[Increase MINOR\nversion number.]
-  UpdateMajor[Increase MAJOR\nversion number.]
+  AddNew([Does the update add any new content?])
+  MajorMinorUpdate([Is the update backwards-compatible?])
+  UpdatePatch[Increase PATCH version number.]
+  UpdateMinor[Increase MINOR version number.]
+  UpdateMajor[Increase MAJOR version number.]
 
-  FixSelf([Are there issues that\nyou can't fix yourself?])
-  OnInternet([Has anyone has a\nsimilar issue online?])
-  AskClord[Ask the Celeste\nDiscord, if neccesary.]
+  FixSelf([Are there issues that you can't fix yourself?])
+  OnInternet([Has anyone has a similar issue online?])
+  AskClord[Ask the Celeste Discord, if neccesary.]
   ClordCourtesy([Can you use help from the Celeste Discord in a respectful, useful way?])
   IntegrateClord[Integrate feedback.]
-  CreditClord[Credit any users\nthat gave help,\nunless asked not to.]
+  CreditClord[Credit any users that gave help,\nunless asked not to.]
   ScrapIdeaNextUpdate[Remove the relevant code until it has been brought into a functioning state.]
   UseOnline[Try to examine the issue and any given solutions.]
 
@@ -55,14 +55,14 @@
   UpdateMajor --> PublishUpdate
 ```
 # Update History
-| Version Number | Date Published | Relevance | Direct Download | Notes |
-| :------------: | :------------: | :-------: | :-------------: | :---: |
-| v1.0.0 | August 29th, 2026 | Major | [Download ZIP](https://gamebanana.com/dl/1800416) | Initial release. |
+| Version Number | Date Published | Relevance | Direct Download |
+| :------------: | :------------: | :-------: | :-------------: |
+| v1.0.0 | August 29th, 2026 | Major | [Download ZIP](https://gamebanana.com/dl/1800416) |
 | v1.1.0 | August 29th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1801518) |
 | v1.2.0 | September 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1805577) |
 | v1.2.1 | September 2nd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1805582) |
 | v1.3.0 | September 3rd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1806415) |
-| v1.3.1 | September 3rd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1806475) | Issues with everest.yaml. |
+| v1.3.1 | September 3rd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1806475) |
 | v1.3.2 | September 5th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1808367) |
 | v1.3.3 | September 6th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1809245) |
 | v1.3.4 | September 9th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1812123) |
@@ -75,8 +75,9 @@
 | v1.8.0 | October 20th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1857521) |
 | v1.8.1 | October 21st, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1858669) |
 | v1.9.0 | October 24th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1862362) |
-| v1.9.1 | October 24th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1862915) | Made by [SnipUndercover](https://github.com/SnipUndercover)! |
-| v1.10.0 | November 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1874754) | Code rewritten, may be prone to bugs. |
+| v1.9.1 | October 24th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1862915) |
+| v1.10.0 | November 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1874754) |
+| v1.11.0 | November 6th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1879349) |
 
 #
 ### Version 1.1.0
@@ -163,4 +164,9 @@
     Entities affected by their respective scale options in the Mod Options menu (mainly jellyfish) can now scale themselves manually if the mod is disabled or if their scale is set to 1x.
     Added missing periods to some descriptions in the Mod Options menu.
     Removed the depreciated testing map because it hasn't been updated in a while, and it's not particularly useful.
-    
+### Version 1.11.0
+    Player hair will now follow the same path as followers when 'Disable Player Hair Gravity' is enabled in the Mod Options menu.
+    Player hair will now fall normally when the player is in a dummy state.
+    Fixed an issue where some setting would still apply when the mod was disabled from the Mod Options menu.
+    Entities with static sprites should now be scaled properly.
+    Added an option to save strawberries between play sessions.

@@ -62,6 +62,10 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
     public int MaxFollowersBuffer { get; set; } = 10;
     private TextMenu.Slider MaxFollowersBufferEntry;
 
+    [SettingIgnore]
+    public bool SessionStrawberries { get; set; } = false;
+    private TextMenu.OnOff SessionStrawberriesEntry;
+
     private bool _MasterSwitch;
     public bool MasterSwitch
     {
@@ -96,7 +100,7 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
             MasterSwitch == true
         ));
 
-        MasterSwitchEntry.UnselectedColor = MasterSwitch ? Color.LawnGreen : Color.Red * 3; ;
+        MasterSwitchEntry.UnselectedColor = MasterSwitch ? Color.LawnGreen : Color.Red * 3;
         MasterSwitchEntry.Change(master => MasterSwitch = master ? true : false);
         MasterSwitchEntry.AddDescription(menu, Dialog.Clean("MODSETTING_MASTERSWITCH_CONTEXT"));
     }
@@ -173,8 +177,8 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
 
         CosmeticOptionsEntry.Add(FollowerScaleEntry = new TextMenu.Slider(
             Dialog.Clean("MODSETTING_FOLLOWERSCALE"),
-            (int i) => $"{((float)i) / 10}x",
-            0,
+            (int i) => $"{(float)i / 10}x",
+            -100,
             100,
             FollowerScale
         ));
@@ -190,8 +194,8 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
 
         CosmeticOptionsEntry.Add(HoldableScaleEntry = new TextMenu.Slider(
             Dialog.Clean("MODSETTING_HOLDABLESCALE"),
-            (int i) => $"{((float)i) / 10}x",
-            0,
+            (int i) => $"{(float)i / 10}x",
+            -100,
             100,
             HoldableScale
         ));
@@ -240,5 +244,12 @@ public class FollowerAddonsModuleSettings : EverestModuleSettings
         ));
         EvenIfGoldenEntry.AddDescription(ExperimentalOptionsEntry, menu, Dialog.Clean("MODSETTING_EVENIFGOLDEN_CONTEXT"));
         EvenIfGoldenEntry.Change(doOverride => EvenIfGolden = doOverride ? true : false);
+
+        ExperimentalOptionsEntry.Add(SessionStrawberriesEntry = new TextMenu.OnOff(
+            Dialog.Clean("MODSETTING_SESSIONSTRAWBERRIES"),
+            SessionStrawberries
+        ));
+        SessionStrawberriesEntry.AddDescription(ExperimentalOptionsEntry, menu, Dialog.Clean("MODSETTING_SESSIONSTRAWBERRIES_CONTEXT"));
+        SessionStrawberriesEntry.Change(save => SessionStrawberries = save);
     }
 }
