@@ -57,27 +57,27 @@
 # Update History
 | Version Number | Date Published | Relevance | Direct Download |
 | :------------: | :------------: | :-------: | :-------------: |
-| v1.0.0 | August 29th, 2026 | Major | [Download ZIP](https://gamebanana.com/dl/1800416) |
-| v1.1.0 | August 29th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1801518) |
-| v1.2.0 | September 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1805577) |
-| v1.2.1 | September 2nd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1805582) |
-| v1.3.0 | September 3rd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1806415) |
-| v1.3.1 | September 3rd, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1806475) |
-| v1.3.2 | September 5th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1808367) |
-| v1.3.3 | September 6th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1809245) |
-| v1.3.4 | September 9th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1812123) |
-| v1.4.0 | September 14th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1817016) |
-| v1.5.0 | September 18th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1820064) |
-| v1.6.0 | October 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1835188) |
-| V1.7.0 | October 16th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1851464) |
-| v1.7.1 | October 17th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1851904) |
-| v1.7.2 | October 19th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1856315) |
-| v1.8.0 | October 20th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1857521) |
-| v1.8.1 | October 21st, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1858669) |
-| v1.9.0 | October 24th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1862362) |
-| v1.9.1 | October 24th, 2026 | Patch | [Download ZIP](https://gamebanana.com/dl/1862915) |
-| v1.10.0 | November 2nd, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1874754) |
-| v1.11.0 | November 6th, 2026 | Minor | [Download ZIP](https://gamebanana.com/dl/1879349) |
+| v1.0.0 | August 29th, 2026 | Major | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.0.0/FollowerAddons.Such.zip) |
+| v1.1.0 | August 29th, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.1.0/Follower.Addons.Such.zip) |
+| v1.2.0 | September 2nd, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.2.0/Follower.Addons.Such.zip) |
+| v1.2.1 | September 2nd, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.2.1/Follower.Addons.Such.zip) |
+| v1.3.0 | September 3rd, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.3.0/Follower.Addons.Such.zip) |
+| v1.3.1 | September 3rd, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.3.1/Follower.Addons.Such.zip) |
+| v1.3.2 | September 5th, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.3.2/Follower.Addons.Such.zip) |
+| v1.3.3 | September 6th, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.3.3/Follower.Addons.Such.zip) |
+| v1.3.4 | September 9th, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.3.4/Follower.Addons.Such.zip) |
+| v1.4.0 | September 14th, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.4.0/Follower.Addons.Such.zip) |
+| v1.5.0 | September 18th, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.5.0/Follower.Addons.Such.zip) |
+| v1.6.0 | October 2nd, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.6.0/Follower.Addons.Such.zip) |
+| V1.7.0 | October 16th, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.7.0/Follower.Addons.Such.zip) |
+| v1.7.1 | October 17th, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.7.1/Follower.Addons.Such.zip) |
+| v1.7.2 | October 19th, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.7.2/Follower.Addons.Such.zip) |
+| v1.8.0 | October 20th, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.8.0/Follower.Addons.Such.zip) |
+| v1.8.1 | October 21st, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.8.1/Follower.Addons.Such.zip) |
+| v1.9.0 | October 24th, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.9.0/Follower.Addons.Such.zip) |
+| v1.9.1 | October 24th, 2026 | Patch | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.9.1/Follower.Addons.Such.zip) |
+| v1.10.0 | November 2nd, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.10.0/Follower.Addons.Such.zip) |
+| v1.11.0 | November 6th, 2026 | Minor | [Download ZIP](https://github.com/DatGuyAlex22/Follower-Addons-And-Such/releases/download/v1.11.0/Follower.Addons.Such.zip) |
 
 #
 ### Version 1.1.0
